@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AIMEX Fest Chatbot</title>
+
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+    }
+
+    /* Chat Icon Button */
+    #chatToggle {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      background: #6a00ff;
+      color: white;
+      border: none;
+      width: 60px;
+      height: 60px;
+      border-radius: 50%;
+      font-size: 25px;
+      cursor: pointer;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+      z-index: 1000;
+    }
+
+    /* Chat Box Popup */
+    #chatBox {
+      position: fixed;
+      bottom: 90px;
+      right: 20px;
+      width: 320px;
+      height: 420px;
+      background: white;
+      border-radius: 15px;
+      box-shadow: 0 6px 20px rgba(0,0,0,0.3);
+      display: none;
+      flex-direction: column;
+      overflow: hidden;
+      z-index: 999;
+    }
+
+    /* Header */
+    #chatHeader {
+      background: #6a00ff;
+      color: white;
+      padding: 12px;
+      text-align: center;
+      font-weight: bold;
+      font-size: 16px;
+    }
+
+    /* Messages Area */
+    #messages {
+      flex: 1;
+      padding: 10px;
+      overflow-y: auto;
+      font-size: 14px;
+      background: #f7f7f7;
+    }
+
+    /* User Message */
+    .userMsg {
+      text-align: right;
+      margin: 8px 0;
+    }
+
+    .userMsg span {
+      display: inline-block;
+      background: #6a00ff;
+      color: white;
+      padding: 8px 12px;
+      border-radius: 15px 15px 0px 15px;
+      max-width: 80%;
+    }
+
+    /* Bot Message */
+    .botMsg {
+      text-align: left;
+      margin: 8px 0;
+    }
+
+    .botMsg span {
+      display: inline-block;
+      background: #e0e0e0;
+      color: black;
+      padding: 8px 12px;
+      border-radius: 15px 15px 15px 0px;
+      max-width: 80%;
+    }
+
+    /* Input Area */
+    #inputArea {
+      display: flex;
+      border-top: 1px solid #ddd;
+      background: white;
+    }
+
+    #userInput {
+      flex: 1;
+      padding: 10px;
+      border: none;
+      outline: none;
+      font-size: 14px;
+    }
+
+    #sendBtn {
+      background: #6a00ff;
+      color: white;
+      border: none;
+      padding: 10px 15px;
+      cursor: pointer;
+    }
+
+    #sendBtn:hover {
+      background: #5200cc;
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- Chat Icon -->
+  <button id="chatToggle">🤖</button>
+
+  <!-- Chat Box -->
+  <div id="chatBox">
+
+    <div id="chatHeader">AIMEX Fest Assistant 🤖</div>
+
+    <div id="messages">
+      <div class="botMsg">
+        <span>Hello Amar! Ask me about AIMEX Fest 🎉</span>
+      </div>
+    </div>
+
+    <div id="inputArea">
+      <input id="userInput" type="text" placeholder="Type a message..." />
+      <button id="sendBtn">➤</button>
+    </div>
+  </div>
+
+  <script>
+    const chatToggle = document.getElementById("chatToggle");
+    const chatBox = document.getElementById("chatBox");
+
+    // Toggle Chat Popup
+    chatToggle.onclick = () => {
+      chatBox.style.display =
+        chatBox.style.display === "flex" ? "none" : "flex";
+    };
+
+    const sendBtn = document.getElementById("sendBtn");
+    const userInput = document.getElementById("userInput");
+    const messages = document.getElementById("messages");
+
+    async function sendMessage() {
+      let msg = userInput.value.trim();
+      if (!msg) return;
+
+      // Show user message
+      messages.innerHTML += `
+        <div class="userMsg"><span>${msg}</span></div>
+      `;
+
+      userInput.value = "";
+
+      // Bot typing placeholder
+      messages.innerHTML += `
+        <div class="botMsg"><span>Typing...</span></div>
+      `;
+      messages.scrollTop = messages.scrollHeight;
+
+      // Call backend
+      let response = await fetch("http://localhost:5000/chat", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ message: msg })
+      });
+
+      let data = await response.json();
+
+      // Remove typing...
+      messages.lastElementChild.remove();
+
+      // Show bot reply
+      messages.innerHTML += `
+        <div class="botMsg"><span>${data.reply}</span></div>
+      `;
+
+      messages.scrollTop = messages.scrollHeight;
+    }
+
+    // Send button click
+    sendBtn.onclick = sendMessage;
+
+    // ENTER key support
+    userInput.addEventListener("keydown", function (event) {
+      if (event.key === "Enter") {
+        sendMessage();
+      }
+    });
+  </script>
+
+</body>
+</html>

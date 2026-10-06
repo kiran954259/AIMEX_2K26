@@ -1,0 +1,1432 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AIMEX 2K26 | Technical Events</title>
+
+  <link href="https://fonts.googleapis.com/css2?family=EB+Garamond&family=Cinzel:wght@500;700&display=swap"
+    rel="stylesheet">
+
+  <style>
+    /* ================= GLOBAL ================= */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    html, body {
+      width: 100%;
+      height: 100%;
+      margin: 0;
+      padding: 0;
+      background: black;   /* ✅ Removes white gap */
+      overflow-x: hidden;
+    }
+    body {
+  min-height: 100vh;
+  background-color: black;
+}
+
+
+
+    /* ================= VIDEO BACKGROUND ================= */
+   .bg-video {
+  position: fixed;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  z-index: 0;
+}
+
+.video-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.75);
+  z-index: 1;
+}
+
+body * {
+  position: relative;
+  z-index: 2;
+}
+
+
+    /* ================= NEW HEADER ================= */
+    .top-header {
+      width: 100%;
+      height: 120px;
+      padding: 50px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      background: rgba(0, 0, 0, 0.40);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid rgba(76, 201, 240, 0.4);
+    }
+@media (max-width: 768px) {
+      .top-header {
+        padding:1px;
+        height:145px;
+      }
+    }
+    /* LEFT LOGO */
+    .header-left img {
+      height: 85px;
+    }
+
+    /* CENTER TITLE */
+    .header-center {
+      text-align: center;
+      flex: 1;
+    }
+
+    .header-center h1 {
+      font-family: 'Cinzel', serif;
+      font-size: 2.8rem;
+      color: #4cc9f0;
+      letter-spacing: 4px;
+    }
+
+    .header-center p {
+      font-size: 1rem;
+      opacity: 0.85;
+      margin-top: 6px;
+    }
+
+    /* RIGHT DOOR */
+    .header-right {
+      font-size: 2rem;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+
+    .header-right:hover {
+      transform: scale(1.2);
+      filter: drop-shadow(0 0 12px #4cc9f0);
+    }
+
+    /* ================= PAGE TITLE ================= */
+    .page-title {
+      text-align: center;
+      font-family: 'Cinzel', serif;
+      font-size: 2rem;
+      margin: 40px 0;
+      letter-spacing: 6px;
+      color: #4cc9f0;
+      text-shadow: 0 0 18px #4cc9f0;
+    }
+
+    /* ================= GRID ================= */
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 70px;
+      justify-items: center;
+      padding: 40px 10%;
+    }
+
+    /* ================= CARD FRAME ================= */
+    .event-frame {
+      width: 330px;
+      height: 290px;
+      position: relative;
+      border-radius: 18px;
+      cursor: pointer;
+      perspective: 1300px;
+    }
+
+    /* Neon Border */
+    .event-frame::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      border-radius: 18px;
+      padding: 2px;
+      background: linear-gradient(45deg, #ff4500, #ff9f1c, #f72585, #7209b7, #4cc9f0, #ff4500);
+      background-size: 300% 300%;
+      animation: borderFlow 3s linear infinite;
+      -webkit-mask:
+        linear-gradient(#000 0 0) content-box,
+        linear-gradient(#000 0 0);
+      -webkit-mask-composite: xor;
+      mask-composite: exclude;
+    }
+
+    @keyframes borderFlow {
+      to {
+        background-position: 300% 50%;
+      }
+    }
+
+    /* Flip Inner */
+    .flip-inner {
+      position: absolute;
+      inset: 7px;
+      border-radius: 14px;
+      transform-style: preserve-3d;
+      transition: transform .85s cubic-bezier(.4, .2, .2, 1);
+    }
+
+    .event-frame.flipped .flip-inner {
+      transform: rotateY(180deg);
+    }
+
+    /* Front + Back */
+    .flip-front,
+    .flip-back {
+      position: absolute;
+      inset: 0;
+      border-radius: 14px;
+      backface-visibility: hidden;
+      overflow: hidden;
+      background: rgba(255, 255, 255, .08);
+      backdrop-filter: blur(10px);
+      display: flex;
+      flex-direction: column;
+    }
+
+    /* FRONT */
+    .flip-front img {
+      width: 100%;
+      height: 180px;
+      object-fit: cover;
+    }
+
+    .front-text {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      padding: 15px;
+    }
+
+    .front-text h3 {
+      font-family: 'Cinzel', serif;
+      font-size: 1.25rem;
+      margin-bottom: 6px;
+    }
+
+    .front-text p {
+      font-size: .95rem;
+      opacity: .85;
+    }
+
+    /* BACK */
+    .flip-back {
+      transform: rotateY(180deg);
+      padding: 12px;
+      align-items: center;
+    }
+
+    .back-title {
+      font-family: 'Cinzel', serif;
+      font-size: 1.05rem;
+      margin-bottom: 10px;
+      color: #4cc9f0;
+      text-shadow: 0 0 10px #4cc9f0;
+    }
+
+    /* Poster */
+    .poster-wrap {
+      position: relative;
+      width: 100%;
+    }
+
+    .poster-wrap img {
+      width: 100%;
+      height: 140px;
+      object-fit: cover;
+      border-radius: 12px;
+      border: 1px solid rgba(76, 201, 240, .6);
+    }
+
+    /* Expand */
+    .expand-btn {
+      position: absolute;
+      bottom: 10px;
+      right: 10px;
+      width: 28px;
+      height: 28px;
+      border: 1px solid #4cc9f0;
+      background: rgba(0, 0, 0, .6);
+      color: #4cc9f0;
+      border-radius: 5px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .expand-btn:hover {
+      background: #4cc9f0;
+      color: black;
+    }
+
+    /* BUTTON GROUP */
+    .btn-group {
+      margin-top: 14px;
+      display: flex;
+      gap: 12px;
+    }
+
+    .event-btn {
+      padding: 10px 18px;
+      border-radius: 25px;
+      font-family: 'Cinzel', serif;
+      font-size: .85rem;
+      letter-spacing: 1px;
+      cursor: pointer;
+      border: 1px solid #4cc9f0;
+      transition: .3s;
+    }
+
+    .details-btn {
+      background: transparent;
+      color: #4cc9f0;
+    }
+
+    .details-btn:hover {
+      background: #4cc9f0;
+      color: black;
+    }
+
+    .register-btn {
+      background: #4cc9f0;
+      color: black;
+    }
+
+    .register-btn:hover {
+      transform: scale(1.07);
+      box-shadow: 0 0 18px #4cc9f0;
+    }
+p{
+  color:white;
+}
+h3{
+  color:white;
+}
+    /* ================= FULLSCREEN POSTER ================= */
+    .poster-view {
+      position: fixed;
+      inset: 0;
+      background: rgba(0, 0, 0, .92);
+      display: none;
+      justify-content: center;
+      align-items: center;
+      z-index: 2000;
+    }
+
+    .poster-view img {
+      max-width: 90vw;
+      max-height: 80vh;
+      object-fit: contain;
+      border-radius: 16px;
+    }
+
+    .poster-close {
+      position: absolute;
+      top: 20px;
+      right: 25px;
+      width: 42px;
+      height: 42px;
+      border-radius: 50%;
+      background: red;
+      color: white;
+      font-size: 22px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+    }
+
+   /* ================= PREMIUM AIMEX MODAL ================= */
+
+.modal {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.85);
+  backdrop-filter: blur(8px);
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+  z-index: 4000;
+}
+
+.modal-box {
+  background: rgba(20, 20, 20, 0.95);
+  width: 100%;
+  max-width: 900px;
+  max-height: 90vh;
+  overflow-y: auto;
+  border-radius: 18px;
+  padding: 35px;
+  scroll-behavior: smooth;
+  border: 1px solid rgba(76, 201, 240, 0.5);
+  box-shadow: 0 0 40px rgba(76, 201, 240, 0.3);
+  color: white;
+}
+.modal-box::-webkit-scrollbar {
+  width: 6px;
+}
+
+.modal-box::-webkit-scrollbar-thumb {
+  background: #4cc9f0;
+  border-radius: 10px;
+}
+
+/* Title */
+.modal-box h2,
+.event-title {
+  text-align: center;
+  font-family: 'Cinzel', serif;
+  font-size: 26px;
+  color: #4cc9f0;
+  margin-bottom: 12px;
+  text-shadow: 0 0 10px #4cc9f0;
+}
+
+.event-desc {
+  text-align: center;
+  opacity: 0.8;
+  margin-bottom: 25px;
+}
+
+/* Section */
+.section {
+  margin-bottom: 30px;
+}
+
+.section h3 {
+  font-family: 'Cinzel', serif;
+  font-size: 18px;
+  margin-bottom: 15px;
+  color: #4cc9f0;
+}
+
+/* Coordinators Grid */
+.coordinator-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 15px;
+}
+
+.coordinator-card {
+  background: rgba(255, 255, 255, 0.05);
+  padding: 15px;
+  border-radius: 12px;
+  border: 1px solid rgba(76, 201, 240, 0.3);
+  transition: 0.3s ease;
+}
+
+.coordinator-card:hover {
+  background: rgba(76, 201, 240, 0.08);
+  transform: translateY(-3px);
+}
+
+.coordinator-card p {
+  color: #ffffff;
+  font-weight: 500;
+}
+
+.coordinator-card strong {
+  color: #ffffff;
+  font-size: 13px;
+  letter-spacing: 0.5px;
+}
+
+.coordinator-card a {
+  text-decoration: none;
+  color: #4cc9f0;
+  font-weight: 500;
+}
+
+.rules-section ol {
+  padding-left: 20px;
+  line-height: 1.6;
+}
+
+.team-size {
+  margin-top: 15px;
+  font-weight: 600;
+  color: gold;
+}
+
+/* Close Button */
+.close-btn {
+  width: 100%;
+  padding: 12px;
+  border-radius: 30px;
+  border: 1px solid red;
+  background: transparent;
+  color: red;
+  cursor: pointer;
+  margin-top: 15px;
+  transition: 0.3s ease;
+}
+
+.close-btn:hover {
+  background: red;
+  color: black;
+}
+
+/* MOBILE RESPONSIVE */
+@media (max-width: 768px) {
+
+  .modal-box {
+    padding: 22px;
+  }
+
+  .coordinator-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .event-title {
+    font-size: 20px;
+  }
+
+  .section h3 {
+    font-size: 16px;
+  }
+}
+.reel-icon {
+  display: inline-block;
+  margin-top: 8px;
+  font-size: 14px;
+  color: #ff4d6d;
+  text-decoration: none;
+}
+
+.reel-icon:hover {
+  text-shadow: 0 0 8px #ff4d6d;
+}
+  </style>
+</head>
+
+<body>
+
+  <!-- 🎥 VIDEO BACKGROUND -->
+  <video class="bg-video" autoplay muted loop playsinline>
+    <source src="eventsbg.mp4" type="video/mp4">
+  </video>
+  <div class="video-overlay"></div>
+
+  <!-- ✅ HEADER -->
+  <div class="top-header">
+
+    <div class="header-left">
+      <img src="AIMEX-LOGO.png" alt="Logo">
+    </div>
+
+    <div class="header-center">
+      <h1>MITS</h1>
+      <p>Madanapalle Institute of Technology & Science<br> Deemed to be University,<br>Andhra Pradesh</p></p>
+    </div>
+
+    <div class="header-right" onclick="window.location.href='index.html'">
+      🏠<p style="font-size:15px;">Back to Home</p>
+    </div>
+
+  </div>
+
+  <h1 class="page-title">NON-TECHNICAL EVENTS</h1>
+
+  <div class="grid">
+
+    <!-- BUZZ GAMES -->
+    <div class="event-frame flip-card">
+      <div class="flip-inner">
+        <div class="flip-front">
+          <img src="buzz1.png" alt="buzz">
+          <div class="front-text">
+            <h3>BUZZ GAMES</h3>
+            <p>Fun Tech Challenges</p>
+          </div>
+        </div>
+
+        <div class="flip-back">
+          <div class="back-title">BUZZ GAMES POSTER</div>
+
+          <div class="poster-wrap">
+            <img src="buzz.png" alt="buzz">
+            <div class="expand-btn" onclick="openPoster(this)">[ ]</div>
+          </div>
+
+          <div class="btn-group">
+            <button type="button" class="event-btn details-btn" onclick="openModal('buzzDetails')">DETAILS</button>
+            <button type="button" class="event-btn register-btn" onclick="openModal('buzzRegister')">REGISTER</button>
+            <a href="https://www.instagram.com/reel/DU2AVvwj2qQ/?igsh=MXhxNzNqOTd5YTZ3NQ=="
+            target="_blank"
+            class="reel-icon">
+            🎬
+          </a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- GRAIN GRAB -->
+    <div class="event-frame flip-card">
+      <div class="flip-inner">
+        <div class="flip-front">
+          <img src="grain1.png" alt="grain">
+          <div class="front-text">
+            <h3>GRAIN GRAB</h3>
+            <p>Capture Moments</p>
+          </div>
+        </div>
+
+        <div class="flip-back">
+          <div class="back-title">GRAIN GRAB POSTER</div>
+
+          <div class="poster-wrap">
+            <img src="grain.png" alt="grain">
+            <div class="expand-btn" onclick="openPoster(this)">[ ]</div>
+          </div>
+
+          <div class="btn-group">
+            <button type="button" class="event-btn details-btn" onclick="openModal('grainDetails')">DETAILS</button>
+            <button type="button" class="event-btn register-btn" onclick="openModal('grainRegister')">REGISTER</button>
+            <a href="https://www.instagram.com/reel/DUzm0tHD-Zj/?igsh=dTRmd2Exa3NrOW9i"
+            target="_blank"
+            class="reel-icon">
+            🎬
+          </a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- E-SPORTS -->
+    <div class="event-frame flip-card">
+      <div class="flip-inner">
+        <div class="flip-front">
+          <img src="esports1.png" alt="esports">
+          <div class="front-text">
+            <h3>E-SPORTS</h3>
+            <p>Competitive Gaming</p>
+          </div>
+        </div>
+
+        <div class="flip-back">
+          <div class="back-title">E-SPORTS POSTER</div>
+
+          <div class="poster-wrap">
+            <img src="esports.png" alt="esports">
+            <div class="expand-btn" onclick="openPoster(this)">[ ]</div>
+          </div>
+
+          <div class="btn-group">
+            <button type="button" class="event-btn details-btn" onclick="openModal('esportsDetails')">DETAILS</button>
+            <button type="button" class="event-btn register-btn" onclick="openModal('esportsRegister')">REGISTER</button>
+            <a href="https://instagram.com/your-reel-link"
+            target="_blank"
+            class="reel-icon">
+            🎬
+          </a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- TUG OF WAR -->
+    <div class="event-frame flip-card">
+      <div class="flip-inner">
+        <div class="flip-front">
+          <img src="tug1.png" alt="tug">
+          <div class="front-text">
+            <h3>TUG OF WAR</h3>
+            <p>Team Strength Challenge</p>
+          </div>
+        </div>
+
+        <div class="flip-back">
+          <div class="back-title">TUG OF WAR POSTER</div>
+
+          <div class="poster-wrap">
+            <img src="tug-of-war.png" alt="tug">
+            <div class="expand-btn" onclick="openPoster(this)">[ ]</div>
+          </div>
+
+          <div class="btn-group">
+            <button type="button" class="event-btn details-btn" onclick="openModal('tugDetails')">DETAILS</button>
+            <button type="button" class="event-btn register-btn" onclick="openModal('tugRegister')">REGISTER</button>
+            <a href="https://www.instagram.com/reel/DU0okFrDMWK/?igsh=bGN6OWZ3NXZhZWJ5"
+            target="_blank"
+            class="reel-icon">
+            🎬
+          </a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- AUCTION ARENA -->
+    <div class="event-frame flip-card">
+      <div class="flip-inner">
+        <div class="flip-front">
+          <img src="Auction1.png" alt="auction">
+          <div class="front-text">
+            <h3>AUCTION ARENA</h3>
+            <p>Ability And Strength</p>
+          </div>
+        </div>
+
+        <div class="flip-back">
+          <div class="back-title">AUCTION ARENA POSTER</div>
+
+          <div class="poster-wrap">
+            <img src="auction-arena.png" alt="auction">
+            <div class="expand-btn" onclick="openPoster(this)">[ ]</div>
+          </div>
+
+          <div class="btn-group">
+            <button type="button" class="event-btn details-btn" onclick="openModal('auctionDetails')">DETAILS</button>
+            <button type="button" class="event-btn register-btn" onclick="openModal('auctionRegister')">REGISTER</button>
+            <a href="https://www.instagram.com/reel/DU-MW_uj-bD/?igsh=Y20wNDV5N21qYjVx"
+            target="_blank"
+            class="reel-icon">
+            🎬
+          </a>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- DODGE BALL -->
+    <div class="event-frame flip-card">
+      <div class="flip-inner">
+        <div class="flip-front">
+          <img src="dodge1.png" alt="dodge">
+          <div class="front-text">
+            <h3>DODGE BALL</h3>
+            <p>Ability And Strategy</p>
+          </div>
+        </div>
+
+        <div class="flip-back">
+          <div class="back-title">DODGE BALL POSTER</div>
+
+          <div class="poster-wrap">
+            <img src="dodge-ball.png" alt="dodge">
+            <div class="expand-btn" onclick="openPoster(this)">[ ]</div>
+          </div>
+
+          <div class="btn-group">
+            <button type="button" class="event-btn details-btn" onclick="openModal('dodgeDetails')">DETAILS</button>
+            <button type="button" class="event-btn register-btn" onclick="openModal('dodgeRegister')">REGISTER</button>
+            <a href="https://www.instagram.com/reel/DU0IOcVD-DQ/?igsh=MW90YjczenA1aWZvNw=="
+            target="_blank"
+            class="reel-icon">
+            🎬
+          </a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- FULLSCREEN POSTER -->
+  <div class="poster-view" id="posterView">
+    <div class="poster-close" onclick="closePoster()">✕</div>
+    <img id="posterImg" src="">
+  </div>
+
+  <!-- DETAILS MODALS -->
+ <div class="modal" id="buzzDetails">
+  <div class="modal-box">
+
+    <h2>BUZZ GAMES</h2>
+
+    <p class="event-desc">
+      Fun multi-level competition including quiz and rapid challenge rounds.
+    </p>
+
+    <!-- COORDINATORS SECTION -->
+    <div class="coordinator-grid">
+
+      <div class="coordinator-card">
+        <h4>Faculty Coordinator</h4>
+        <p>Mr. V. Sivaraman</p>
+        <a href="tel:+919629590800">📞 +91 9629590800</a>
+      </div>
+
+      <div class="coordinator-card">
+        <h4>Sr. Coordinator</h4>
+        <p>Raghupathi</p>
+        <a href="tel:+919876543210">📞 +91 9876543210</a>
+      </div>
+
+      <div class="coordinator-card">
+        <h4>Sr. Coordinator</h4>
+        <p>Mahesh</p>
+        <a href="tel:+919876543210">📞 +91 9876543210</a>
+      </div>
+
+      <div class="coordinator-card">
+        <h4>Sr. Coordinator</h4>
+        <p>Jagadeesh</p>
+        <a href="tel:+919876543210">📞 +91 9876543210</a>
+      </div>
+
+      <div class="coordinator-card">
+        <h4>Sr. Coordinator</h4>
+        <p>Jayanth Varun</p>
+        <a href="tel:+919876543210">📞 +91 9876543210</a>
+      </div>
+
+      <div class="coordinator-card">
+        <h4>Coordinator</h4>
+        <p>Vennela</p>
+        <a href="tel:+917330665213">📞 +91 7330665213</a>
+      </div>
+
+      <div class="coordinator-card">
+        <h4>Coordinator</h4>
+        <p>Ram</p>
+        <a href="tel:+919063808532">📞 +91 9063808532</a>
+      </div>
+
+      <div class="coordinator-card">
+        <h4>Coordinator</h4>
+        <p>Bhavya</p>
+        <a href="tel:+919014115078">📞 +91 9014115078</a>
+      </div>
+
+      <div class="coordinator-card">
+        <h4>Coordinator</h4>
+        <p>Jyothirmayee</p>
+        <a href="tel:+918919051336">📞 +91 8919051336</a>
+      </div>
+
+    </div>
+
+    <!-- RULES SECTION -->
+    <div class="rules-section">
+      <h3>🧩 BUZZ GAMES RULES</h3>
+
+      <p><strong>✅ General</strong></p>
+      <ol>
+        <li>Follow instructions. No mobiles. No cheating.</li>
+        <li>Violations lead to disqualification. Decision is final.</li>
+      </ol>
+
+      <p><strong>🟡 Level 1 – Movie Buzz</strong></p>
+      <ol>
+        <li>Quiz (Batch of 4) — Buzz & answer.</li>
+        <li>Top 2 teams qualify.</li>
+      </ol>
+
+      <p><strong>🔵 Level 2 – Balloon Cup</strong></p>
+      <ol>
+        <li>3 minutes. Balloon must be held in mouth only.</li>
+        <li>No hands allowed. Top teams qualify.</li>
+      </ol>
+
+      <p><strong>🔴 Level 3 – Final Round</strong></p>
+      <ol>
+        <li>5 minutes total — 4 mini games.</li>
+        <li>Fastest team wins. Time exceed = Disqualification.</li>
+      </ol>
+    </div>
+
+    <button type="button" class="close-btn"
+      onclick="closeModal('buzzDetails')">
+      Close
+    </button>
+
+  </div>
+</div>
+
+
+<div class="modal" id="grainDetails">
+  <div class="modal-box">
+
+    <h2>GRAIN GRAB</h2>
+
+    <p class="event-desc">
+      A fun skill-based challenge testing concentration, accuracy, and speed.
+    </p>
+
+    <!-- COORDINATORS SECTION -->
+    <div class="coordinator-grid">
+
+      <div class="coordinator-card">
+        <h4>Faculty Coordinator</h4>
+        <p>Dr. R. Praveen Kumar</p>
+        <a href="tel:+919492692166">📞 +91 9492692166</a>
+      </div>
+
+      <div class="coordinator-card">
+        <h4>Faculty Coordinator</h4>
+        <p>Mr. B. Tharakeswara Raju</p>
+        <a href="tel:+919391916600">📞 +91 9391916600</a>
+      </div>
+
+      <div class="coordinator-card">
+        <h4>Sr. Coordinator</h4>
+        <p>Nandini</p>
+        <a href="tel:+917659907076">📞 +91 7659907076</a>
+      </div>
+
+      <div class="coordinator-card">
+        <h4>Coordinator</h4>
+        <p>Ananya</p>
+        <a href="tel:+918317644877">📞 +91 8317644877</a>
+      </div>
+
+      <div class="coordinator-card">
+        <h4>Coordinator</h4>
+        <p>Ankitha</p>
+        <a href="tel:+919390517963">📞 +91 9390517963</a>
+      </div>
+
+      <div class="coordinator-card">
+        <h4>Coordinator</h4>
+        <p>Ramya Sri</p>
+        <a href="tel:+918639610940">📞 +91 8639610940</a>
+      </div>
+
+    </div>
+
+    <!-- RULES SECTION -->
+    <div class="rules-section">
+      <h3>🧩 GRAIN GRAB RULES</h3>
+
+      <ol>
+        <li>Participation is individual (1 member only).</li>
+        <li>Follow coordinator instructions and game rules strictly.</li>
+        <li>Participants must report on time and cooperate with organizers.</li>
+        <li>Using two hands leads to immediate disqualification.</li>
+        <li>Cheating or unfair play is strictly prohibited.</li>
+        <li>The game consists of 3 levels; qualifiers depend on total registrations.</li>
+        <li>Final round includes 8 participants. Top 2 become Winner & Runner-up.</li>
+        <li>Results are based on concentration, accuracy, and fair play.</li>
+      </ol>
+    </div>
+
+    <button type="button" class="close-btn"
+      onclick="closeModal('grainDetails')">
+      Close
+    </button>
+
+  </div>
+</div>
+
+
+<div class="modal" id="esportsDetails">
+  <div class="modal-box">
+
+    <h2>E-SPORTS</h2>
+
+    <p class="event-desc">
+      Competitive gaming tournament featuring BGMI and Free Fire battle rounds.
+    </p>
+
+    <!-- COORDINATORS SECTION -->
+    <div class="coordinator-grid">
+
+      <div class="coordinator-card">
+        <h4>Faculty Coordinator</h4>
+        <p>Mr. P. Udaya Kumar</p>
+        <a href="tel:+916381240108">📞 +91 6381240108</a>
+      </div>
+
+      <div class="coordinator-card">
+        <h4>Faculty Coordinator</h4>
+        <p>Mr. Subhas Das</p>
+        <a href="tel:+917551817633">📞 +91 7551817633</a>
+      </div>
+
+      <div class="coordinator-card">
+        <h4>Sr. Coordinator</h4>
+        <p>Sai Krishna</p>
+        <a href="tel:+919876543210">📞 +91 9876543210</a>
+      </div>
+
+      <div class="coordinator-card">
+        <h4>Sr. Coordinator</h4>
+        <p>Surya</p>
+        <a href="tel:+919876543210">📞 +91 9876543210</a>
+      </div>
+
+      <div class="coordinator-card">
+        <h4>Sr. Coordinator</h4>
+        <p>Noorul Hussain</p>
+        <a href="tel:+919876543210">📞 +91 9876543210</a>
+      </div>
+
+      <div class="coordinator-card">
+        <h4>Coordinator</h4>
+        <p>Roony Williams</p>
+        <a href="tel:+919392077007">📞 +91 9392077007</a>
+      </div>
+
+      <div class="coordinator-card">
+        <h4>Coordinator</h4>
+        <p>Shanmukha Sreenivas</p>
+        <a href="tel:+919573306193">📞 +91 9573306193</a>
+      </div>
+
+      <div class="coordinator-card">
+        <h4>Coordinator</h4>
+        <p>Harsha Vardhan</p>
+        <a href="tel:+919391143639">📞 +91 9391143639</a>
+      </div>
+
+      <div class="coordinator-card">
+        <h4>Coordinator</h4>
+        <p>Abhishek</p>
+        <a href="tel:+918688086937">📞 +91 8688086937</a>
+      </div>
+
+    </div>
+
+    <!-- RULES SECTION -->
+    <div class="rules-section">
+      <h3>🧩 E-SPORTS RULES</h3>
+
+      <!-- BGMI -->
+      <p><strong>🎮 BGMI</strong></p>
+      <ol>
+        <li>Round 1: Erangel / Livik | Squad of 4 players | Top 8 qualify.</li>
+        <li>Matches are monitored by coordinators.</li>
+        <li>Round 2: Group A vs B (TDM) — One match each | ~4 winners qualify.</li>
+        <li>Round 3: TDM — Winners advance to Finals.</li>
+      </ol>
+
+      <p><strong>🚫 TDM Restrictions</strong></p>
+      <ol>
+        <li>Sliding must be OFF.</li>
+        <li>Only M416 is allowed.</li>
+        <li>No extra guns or pistols.</li>
+        <li>No throwables allowed.</li>
+        <li>No rule violations during matches.</li>
+      </ol>
+
+      <!-- FREE FIRE -->
+      <p><strong>🔥 FREE FIRE</strong></p>
+      <ol>
+        <li>Bermuda Map | Squad of maximum 4 players.</li>
+        <li>Matches are monitored by coordinators.</li>
+        <li>Round 1: All teams play — Top 8 qualify.</li>
+        <li>Round 2: Group A vs B (Clash Squad) — Winners qualify.</li>
+        <li>Round 3: Clash Squad — Winners advance to Finals.</li>
+        <li>No Gloo Wall breaking.</li>
+        <li>No Gloo Pack in the last zone.</li>
+        <li>No throwables allowed.</li>
+        <li>No hacks, panels, or rule violations.</li>
+      </ol>
+    </div>
+
+    <button type="button" class="close-btn"
+      onclick="closeModal('esportsDetails')">
+      Close
+    </button>
+
+  </div>
+</div>
+
+ 
+<div class="modal" id="tugDetails">
+  <div class="modal-box">
+
+    <h2>TUG OF WAR</h2>
+
+    <p class="event-desc">
+      A team strength competition testing coordination, power, and strategy.
+    </p>
+
+    <!-- COORDINATORS SECTION -->
+    <div class="coordinator-grid">
+
+      <div class="coordinator-card">
+        <h4>Faculty Coordinator</h4>
+        <p>Mr. BSH. Shayeez</p>
+        <a href="tel:+919966390973">📞 +91 9966390973</a>
+      </div>
+
+      <div class="coordinator-card">
+        <h4>Faculty Coordinator</h4>
+        <p>Mr. G. Nithin</p>
+        <a href="tel:+919440476321">📞 +91 9440476321</a>
+      </div>
+
+      <div class="coordinator-card">
+        <h4>Sr. Coordinator</h4>
+        <p>Vineesha</p>
+        <a href="tel:+919876543210">📞 +91 9876543210</a>
+      </div>
+
+      <div class="coordinator-card">
+        <h4>Sr. Coordinator</h4>
+        <p>Asritha</p>
+        <a href="tel:+919876543210">📞 +91 9876543210</a>
+      </div>
+
+      <div class="coordinator-card">
+        <h4>Sr. Coordinator</h4>
+        <p>Umair</p>
+        <a href="tel:+919876543210">📞 +91 9876543210</a>
+      </div>
+
+      <div class="coordinator-card">
+        <h4>Coordinator</h4>
+        <p>Nada Shaik</p>
+        <a href="tel:+919490402623">📞 +91 9490402623</a>
+      </div>
+
+      <div class="coordinator-card">
+        <h4>Coordinator</h4>
+        <p>Vyshnavi</p>
+        <a href="tel:+919154790706">📞 +91 9154790706</a>
+      </div>
+
+      <div class="coordinator-card">
+        <h4>Coordinator</h4>
+        <p>Pavan</p>
+        <a href="tel:+918971466750">📞 +91 8971466750</a>
+      </div>
+
+      <div class="coordinator-card">
+        <h4>Coordinator</h4>
+        <p>Venkatesh</p>
+        <a href="tel:+919440630828">📞 +91 9440630828</a>
+      </div>
+
+    </div>
+
+    <!-- RULES SECTION -->
+    <div class="rules-section">
+      <h3>🧩 TUG OF WAR RULES</h3>
+
+      <ol>
+        <li>Each team must have equal players (6–8 members).</li>
+        <li>The center mark of the rope starts aligned with the ground center line.</li>
+        <li>Teams must pull until the center mark crosses their winning line.</li>
+        <li>The match begins only on the referee’s whistle.</li>
+        <li>Proper sports shoes are required (no spikes unless permitted).</li>
+        <li>Hands only — tying the rope or sitting is not allowed. Players must remain standing.</li>
+        <li>No early pulling or unfair play. The first team to cross the line wins.</li>
+      </ol>
+    </div>
+
+    <button type="button" class="close-btn"
+      onclick="closeModal('tugDetails')">
+      Close
+    </button>
+
+  </div>
+</div>
+
+
+<div class="modal" id="auctionDetails">
+  <div class="modal-box">
+
+    <h2>AUCTION ARENA</h2>
+
+    <p class="event-desc">
+      A strategic bidding competition testing decision-making and team management skills.
+    </p>
+
+    <!-- COORDINATORS SECTION -->
+    <div class="coordinator-grid">
+
+      <div class="coordinator-card">
+        <h4>Faculty Coordinator</h4>
+        <p>Mr. Subhas Das</p>
+        <a href="tel:+917551817633">📞 +91 7551817633</a>
+      </div>
+
+      <div class="coordinator-card">
+        <h4>Sr. Coordinator</h4>
+        <p>Lekha Sree</p>
+        <a href="tel:+919676512443">📞 +91 9676512443</a>
+      </div>
+
+      <div class="coordinator-card">
+        <h4>Sr. Coordinator</h4>
+        <p>Mujahid</p>
+        <a href="tel:+919741884173">📞 +91 9741884173</a>
+      </div>
+
+      <div class="coordinator-card">
+        <h4>Coordinator</h4>
+        <p>Nanda Kishore</p>
+        <a href="tel:+917416959516">📞 +91 7416959516</a>
+      </div>
+
+      <div class="coordinator-card">
+        <h4>Coordinator</h4>
+        <p>Karthik</p>
+        <a href="tel:+919492373104">📞 +91 9492373104</a>
+      </div>
+
+    </div>
+
+    <!-- RULES SECTION -->
+    <div class="rules-section">
+      <h3>🧩 AUCTION ARENA RULES</h3>
+
+      <ol>
+        <li>Team size: Minimum 1 and maximum 3 members.</li>
+        <li>Only the player category will be revealed before bidding.</li>
+        <li>Bids must be clear and placed within the given time limit.</li>
+        <li>Once placed, a bid cannot be withdrawn.</li>
+        <li>Each team will receive a fixed amount of virtual money.</li>
+        <li>Negative balance is strictly not allowed.</li>
+        <li>Maintain discipline — no arguments or unfair means.</li>
+        <li>Winner will be decided based on the highest total team value.</li>
+        <li>In case of a tie, the team with higher remaining virtual money wins.</li>
+      </ol>
+    </div>
+
+    <button type="button" class="close-btn"
+      onclick="closeModal('auctionDetails')">
+      Close
+    </button>
+
+  </div>
+</div>
+
+
+<div class="modal" id="dodgeDetails">
+  <div class="modal-box">
+
+    <h2>DODGE BALL</h2>
+
+    <p class="event-desc">
+      A fast-paced team game testing agility, strategy, and coordination.
+    </p>
+
+    <!-- COORDINATORS SECTION -->
+    <div class="coordinator-grid">
+
+      <div class="coordinator-card">
+        <h4>Faculty Coordinator</h4>
+        <p>Mr. G. Nithin</p>
+        <a href="tel:+919440476321">📞 +91 9440476321</a>
+      </div>
+
+      <div class="coordinator-card">
+        <h4>Sr. Coordinator</h4>
+        <p>Harshitha</p>
+        <a href="tel:+918309041154">📞 +91 8309041154</a>
+      </div>
+
+      <div class="coordinator-card">
+        <h4>Sr. Coordinator</h4>
+        <p>Reddy Lokesh</p>
+        <a href="tel:+917569455160">📞 +91 7569455160</a>
+      </div>
+
+      <div class="coordinator-card">
+        <h4>Coordinator</h4>
+        <p>Harshitha</p>
+        <a href="tel:+917793914843">📞 +91 7793914843</a>
+      </div>
+
+      <div class="coordinator-card">
+        <h4>Coordinator</h4>
+        <p>Sai Varshini</p>
+        <a href="tel:+919177505560">📞 +91 9177505560</a>
+      </div>
+
+      <div class="coordinator-card">
+        <h4>Coordinator</h4>
+        <p>Balaji</p>
+        <a href="tel:+917095850603">📞 +91 7095850603</a>
+      </div>
+
+      <div class="coordinator-card">
+        <h4>Coordinator</h4>
+        <p>Viswa Teja</p>
+        <a href="tel:+917893315990">📞 +91 7893315990</a>
+      </div>
+
+    </div>
+
+    <!-- RULES SECTION -->
+    <div class="rules-section">
+      <h3>🧩 DODGE BALL RULES</h3>
+
+      <ol>
+        <li>Only registered players are allowed. Proper sports attire is compulsory.</li>
+        <li>Players must follow referee instructions at all times.</li>
+        <li>The game is played between an Inside Team and an Outside Team.</li>
+        <li>Ball hits below the knee result in OUT. Hits above the knee (head/torso) are invalid.</li>
+        <li>Stepping outside the court boundary leads to elimination.</li>
+        <li>Each round has a fixed time limit. Teams switch after all inside players are out.</li>
+        <li>Rough play, arguments, or unfair behavior result in disqualification.</li>
+        <li>The team with maximum eliminations or minimum completion time is declared the winner.</li>
+      </ol>
+    </div>
+
+    <button type="button" class="close-btn"
+      onclick="closeModal('dodgeDetails')">
+      Close
+    </button>
+
+  </div>
+</div>
+
+
+
+
+  <!-- REGISTER MODALS -->
+  <div class="modal" id="buzzRegister">
+    <div class="modal-box">
+      <h2>BUZZ GAMES</h2>
+      <p>Select Registration Type</p>
+      <button type="button" class="event-btn register-btn" onclick="window.open('https://forms.gle/zzuJbnDUuwcLJrpt8')">Internal
+        ₹50</button>
+      <br><br>
+      <button type="button" class="event-btn register-btn" onclick="window.open('https://forms.gle/YMGfRA5PjvVvtJ666')">External
+        ₹60</button>
+      <br><br>
+      <button type="button" class="close-btn" onclick="closeModal('buzzRegister')">Close</button>
+    </div>
+  </div>
+
+  <div class="modal" id="grainRegister">
+    <div class="modal-box">
+      <h2>GRAIN GRAB</h2>
+      <p>Select Registration Type</p>
+      <button type="button" class="event-btn register-btn" onclick="window.open('https://forms.gle/UDdoXbyniFdkcHZS7')">Internal
+        ₹50</button>
+      <br><br>
+      <button type="button" class="event-btn register-btn" onclick="window.open('https://forms.gle/gTfq94cWkZhWoUx97')">External
+        ₹60</button>
+      <br><br>
+      <button type="button" class="close-btn" onclick="closeModal('grainRegister')">Close</button>
+    </div>
+  </div>
+
+  <div class="modal" id="tugRegister">
+    <div class="modal-box">
+      <h2>TUG OF WAR</h2>
+      <p>Select Registration Type</p>
+      <button type="button" class="event-btn register-btn" onclick="window.open('https://forms.gle/BvwJbxkXmpGp9Pcu5')">Internal
+        ₹40</button>
+      <br><br>
+      <button type="button" class="event-btn register-btn" onclick="window.open('https://forms.gle/aX71Y1QyAy9Hpc8EA')">External
+        ₹50</button>
+      <br><br>
+      <button type="button" class="close-btn" onclick="closeModal('tugRegister')">Close</button>
+    </div>
+  </div>
+
+  <div class="modal" id="esportsRegister">
+    <div class="modal-box">
+      <h2>E-SPORTS</h2>
+      <p>Select Registration Type</p>
+      <button type="button" class="event-btn register-btn" onclick="window.open('https://forms.gle/ro1Yyxh97spMpSk16')">Internal
+        </button>
+      <br><br>
+      <button type="button" class="event-btn register-btn" onclick="window.open('https://forms.gle/zPYFLizJiRiZjovE6')">External
+        </button>
+      <br><br>
+      <button type="button" class="close-btn" onclick="closeModal('esportsRegister')">Close</button>
+    </div>
+  </div>
+
+  <div class="modal" id="auctionRegister">
+    <div class="modal-box">
+      <h2>AUCTION ARENA</h2>
+      <p>Select Registration Type</p>
+      <button type="button" class="event-btn register-btn" onclick="window.open('https://forms.gle/PyzQqvGByZw9MN8k6')">Internal
+        ₹50</button>
+      <br><br>
+      <button type="button" class="event-btn register-btn" onclick="window.open('https://forms.gle/rboNZtRrHL4nbqMz9')">External
+        ₹60</button>
+      <br><br>
+      <button type="button" class="close-btn" onclick="closeModal('auctionRegister')">Close</button>
+    </div>
+  </div>
+
+
+  <div class="modal" id="dodgeRegister">
+    <div class="modal-box">
+      <h2>DODGE BALL</h2>
+      <p>Select Registration Type</p>
+      <button type="button" class="event-btn register-btn" onclick="window.open('https://forms.gle/4g9oejqT1CTmyNjc9')">Internal
+        ₹40</button>
+      <br><br>
+      <button type="button" class="event-btn register-btn" onclick="window.open('https://forms.gle/WAkWD397pbC8vCtMA')">External
+        ₹50</button>
+
+      <br><br>
+      <button type="button" class="close-btn" onclick="closeModal('dodgeRegister')">Close</button>
+    </div>
+  </div>
+  <script>
+    /* FLIP CARD LOGIC */
+      let activeCard = null;
+
+  document.querySelectorAll(".flip-card").forEach(card => {
+        card.addEventListener("click", (e) => {
+          e.stopPropagation();
+
+          // If another card is open, close it
+          if (activeCard && activeCard !== card) {
+            activeCard.classList.remove("flipped");
+          }
+
+          // Toggle current card
+          card.classList.toggle("flipped");
+
+          // Update active card reference
+          activeCard = card.classList.contains("flipped") ? card : null;
+        });
+  });
+
+      /* POSTER FULLSCREEN */
+      function openPoster(btn) {
+        event.stopPropagation();
+      document.getElementById("posterImg").src =
+      btn.previousElementSibling.src;
+      document.getElementById("posterView").style.display = "flex";
+  }
+
+      function closePoster() {
+        document.getElementById("posterView").style.display = "none";
+  }
+
+      /* MODALS */
+      function openModal(id) {
+        event.stopPropagation();
+      document.getElementById(id).style.display = "flex";
+  }
+
+      function closeModal(id) {
+        document.getElementById(id).style.display = "none";
+  }
+    /* POSTER FULLSCREEN */
+    function openPoster(btn) {
+      event.stopPropagation();
+      document.getElementById("posterImg").src =
+        btn.previousElementSibling.src;
+      document.getElementById("posterView").style.display = "flex";
+    }
+    function closePoster() {
+      document.getElementById("posterView").style.display = "none";
+    }
+
+    /* MODALS */
+    function openModal(id) {
+      event.stopPropagation();
+      document.getElementById(id).style.display = "flex";
+    }
+    function closeModal(id) {
+      document.getElementById(id).style.display = "none";
+    }
+  </script>
+
+</body>
+
+</html>

@@ -1,0 +1,334 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Web Creators | AIMEX 2K26</title>
+
+<!-- Fonts -->
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Cinzel:wght@600;700&display=swap" rel="stylesheet">
+
+<!-- Icons -->
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet">
+
+<style>
+:root{
+  --bg-main:#070b14;
+  --bg-grad:#0c1324;
+  --card-bg:rgba(255,255,255,0.05);
+  --border:rgba(255,255,255,0.15);
+  --text-main:#f1f5f9;
+  --text-muted:#94a3b8;
+  --gold:#d4af37;
+  --blue:#3b82f6;
+  --icon-hover:#25D366; /* WhatsApp green hover */
+}
+
+/* Reset */
+*{margin:0;padding:0;box-sizing:border-box;font-family:"Inter",sans-serif;}
+body{
+  background:radial-gradient(1200px 600px at 50% -200px,var(--bg-grad),var(--bg-main));
+  color:var(--text-main);
+  min-height:100vh;
+}
+
+/* Container */
+.container{
+  max-width:1200px;
+  margin:auto;
+  padding:80px 20px 60px;
+}
+
+/* Hero */
+.hero{
+  text-align:center;
+  margin-bottom:70px;
+}
+.hero h1{
+  font-family:"Cinzel",serif;
+  font-size:3rem;
+  letter-spacing:1.5px;
+  color:var(--gold);
+}
+.hero p{
+  margin-top:12px;
+  color:var(--text-muted);
+  font-size:1.05rem;
+  letter-spacing:.5px;
+}
+.divider{
+  width:120px;
+  height:3px;
+  margin:20px auto 0;
+  background:linear-gradient(90deg,transparent,var(--gold),transparent);
+}
+
+/* Grid */
+.grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
+  gap:26px;
+}
+
+/* Card */
+.card{
+  background:var(--card-bg);
+  border:1px solid var(--border);
+  border-radius:18px;
+  padding:26px 20px;
+  backdrop-filter:blur(10px);
+  transition:transform .25s ease,border .25s ease,box-shadow .25s ease;
+  position:relative;
+}
+.card:hover{
+  transform:translateY(-6px) scale(1.02);
+  border-color:var(--gold);
+  box-shadow:0 20px 40px rgba(0,0,0,0.3);
+}
+
+/* Profile */
+.profile{
+  display:flex;
+  align-items:center;
+  gap:16px;
+  margin-bottom:14px;
+}
+.avatar{
+  width:70px;
+  height:70px;
+  border-radius:50%;
+  object-fit:cover;
+  border:2px solid var(--border);
+  background:#1f2937;
+  transition: box-shadow .3s ease, transform .3s ease;
+}
+.card:hover .avatar{
+  box-shadow:0 0 18px var(--gold);
+  transform:scale(1.08);
+}
+.name{
+  font-size:1.1rem;
+  font-weight:600;
+}
+.role{
+  margin-top:4px;
+  font-size:.88rem;
+  color:var(--text-muted);
+}
+
+/* Social Icons */
+.socials{
+  margin-top:14px;
+  display:flex;
+  gap:18px;
+}
+.socials a{
+  color:var(--text-muted);
+  font-size:1.3rem;
+  transition: color .25s ease, transform .25s ease;
+  position:relative;
+}
+.socials a:hover{
+  color:var(--icon-hover);
+  transform:scale(1.15);
+}
+
+/* Tooltip */
+.socials a::after{
+  content: attr(data-tooltip);
+  position:absolute;
+  bottom:130%;
+  left:50%;
+  transform:translateX(-50%);
+  background:var(--gold);
+  color:#070b14;
+  font-size:.7rem;
+  padding:2px 6px;
+  border-radius:6px;
+  white-space:nowrap;
+  opacity:0;
+  pointer-events:none;
+  transition:opacity .2s ease;
+}
+.socials a:hover::after{
+  opacity:1;
+}
+
+/* Footer */
+footer{
+  margin-top:70px;
+  text-align:center;
+  font-size:.85rem;
+  color:var(--text-muted);
+  letter-spacing:.4px;
+}
+
+/* Mobile adjustments */
+@media(max-width:768px){
+  .grid{grid-template-columns:repeat(auto-fit,minmax(220px,1fr));}
+}
+@media(max-width:500px){
+  .hero h1{font-size:2.2rem;}
+  .avatar{width:60px;height:60px;}
+  .socials{gap:14px;}
+}
+
+/* ✅ Back Home Button Style */
+.back-home {
+  margin-top: 60px;
+  text-align: center;
+}
+
+.back-home a {
+  display: inline-block;
+  padding: 12px 28px;
+  border-radius: 30px;
+  border: 1px solid var(--gold);
+  color: var(--gold);
+  font-family: "Cinzel", serif;
+  text-decoration: none;
+  font-size: 1rem;
+  transition: 0.3s;
+}
+
+.back-home a:hover {
+  background: var(--gold);
+  color: black;
+  transform: scale(1.05);
+}
+
+@media(max-width: 786px) {
+  .hero h1{
+    font-size: 2.5rem;
+  }
+}
+</style>
+</head>
+<body>
+
+<div class="container">
+
+<!-- Hero -->
+<div class="hero">
+  <h1>Website Creators</h1>
+  <div class="divider"></div>
+  <p>AIMEX 2K26 · Web Development Team</p>
+</div>
+
+<!-- Creators Grid -->
+<div class="grid">
+
+<!-- Member 1 -->
+<div class="card">
+  <div class="profile">
+    <img src="ajay.png" alt="ajay" class="avatar">
+    <div>
+      <div class="name">N.Ajay Kumar Reddy</div>
+      <div class="role">24691A3301</div>
+    </div>
+  </div>
+  <div class="socials">
+    <a href="https://www.linkedin.com/in/ajay-kumar-reddy-69648032b?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=android_app" target="_blank" data-tooltip="LinkedIn"><i class="fab fa-linkedin"></i></a>
+    <a href="https://www.instagram.com/ajay.reddy_x?igsh=MWcyNTY2dTRlZ2Y3Mw==" target="_blank" data-tooltip="Instagram"><i class="fab fa-instagram"></i></a>
+    <a href="https://wa.me/918885345006" target="_blank" data-tooltip="WhatsApp"><i class="fab fa-whatsapp"></i></a>
+  </div>
+</div>
+
+<!-- Member 2 -->
+<div class="card">
+  <div class="profile">
+    <img src="amar.png" alt="amaranath" class="avatar">
+    <div>
+      <div class="name">V.Amaranath</div>
+      <div class="role">24691A3304</div>
+    </div>
+  </div>
+  <div class="socials">
+    <a href="https://linkedin.com/in/rahulreddy" target="_blank" data-tooltip="LinkedIn"><i class="fab fa-linkedin"></i></a>
+    <a href="https://www.instagram.com/_mr_perfect_1419?igsh=OW8xZG1jcmV5ZmVo" target="_blank" data-tooltip="Instagram"><i class="fab fa-instagram"></i></a>
+    <a href="https://wa.me/917780558919" target="_blank" data-tooltip="WhatsApp"><i class="fab fa-whatsapp"></i></a>
+  </div>
+</div>
+
+<!-- Member 3 -->
+<div class="card">
+  <div class="profile">
+    <img src="dinesh.png" alt="dinesh" class="avatar">
+    <div>
+      <div class="name">N.Dinesh</div>
+      <div class="role">24691A3326</div>
+    </div>
+  </div>
+  <div class="socials">
+    <a href="https://linkedin.com/in/snehasharma" target="_blank" data-tooltip="LinkedIn"><i class="fab fa-linkedin"></i></a>
+    <a href="https://www.instagram.com/_mr_lucky______07?igsh=MTRraGh2cDdjenF0bQ==" target="_blank" data-tooltip="Instagram"><i class="fab fa-instagram"></i></a>
+    <a href="https://wa.me/918688010847" target="_blank" data-tooltip="WhatsApp"><i class="fab fa-whatsapp"></i></a>
+  </div>
+</div>
+
+<!-- Member 4 -->
+<div class="card">
+  <div class="profile">
+    <img src="kiran.png" alt="kiran" class="avatar">
+    <div>
+      <div class="name">R.Kiran Kumar Reddy</div>
+      <div class="role">24691A3350</div>
+    </div>
+  </div>
+  <div class="socials">
+    <a href="https://linkedin.com/in/arjunsingh" target="_blank" data-tooltip="LinkedIn"><i class="fab fa-linkedin"></i></a>
+    <a href="https://www.instagram.com/_user_is_mine?igsh=MWw5OXJ6cjE3MWhoOQ==" target="_blank" data-tooltip="Instagram"><i class="fab fa-instagram"></i></a>
+    <a href="https://wa.me/919121200795" target="_blank" data-tooltip="WhatsApp"><i class="fab fa-whatsapp"></i></a>
+  </div>
+</div>
+
+<!-- Member 5 -->
+<div class="card">
+  <div class="profile">
+    <img src="madhu.png" alt="madanamohanrao" class="avatar">
+    <div>
+      <div class="name">P.B.Madana Mohan Rao</div>
+      <div class="role">24691A3359</div>
+    </div>
+  </div>
+  <div class="socials">
+    <a href="https://linkedin.com/in/priyanair" target="_blank" data-tooltip="LinkedIn"><i class="fab fa-linkedin"></i></a>
+    <a href="https://www.instagram.com/n_o_b_i_t_a1735?igsh=bzlhZHIzMDZ4bzVv" target="_blank" data-tooltip="Instagram"><i class="fab fa-instagram"></i></a>
+    <a href="https://wa.me/919885640458" target="_blank" data-tooltip="WhatsApp"><i class="fab fa-whatsapp"></i></a>
+  </div>
+</div>
+
+<!-- Member 6 -->
+<div class="card">
+  <div class="profile">
+    <img src="manoj.png" alt="manoj" class="avatar">
+    <div>
+      <div class="name">V.Manoj Kumar Reddy</div>
+      <div class="role">24691A3365</div>
+    </div>
+  </div>
+  <div class="socials">
+    <a href="https://linkedin.com/in/vikaspatel" target="_blank" data-tooltip="LinkedIn"><i class="fab fa-linkedin"></i></a>
+    <a href="https://www.instagram.com/_m_a_n_o_j_r_e_d_d_y_08?igsh=MmUycjhybTE5bWN0" target="_blank" data-tooltip="Instagram"><i class="fab fa-instagram"></i></a>
+    <a href="https://wa.me/917013897793" target="_blank" data-tooltip="WhatsApp"><i class="fab fa-whatsapp"></i></a>
+  </div>
+</div>
+
+</div>
+
+<!-- ✅ Back to Home Button -->
+<div class="back-home">
+  <a href="index.html">
+    <i class="fas fa-home"></i> Back to Home
+  </a>
+</div>
+
+
+<footer>
+  © 2026 AIMEX 2K26 · Web Development Team
+</footer>
+
+</div>
+
+</body>
+</html>

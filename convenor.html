@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Head of Department | AIMEX 2K26</title>
+
+  <!-- Fonts (Same Style as Your Page) -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&
+family=Cinzel:wght@600;700&display=swap" rel="stylesheet">
+
+  <!-- Font Awesome Icons -->
+  <link rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+  <style>
+    :root {
+      --bg-main: #070b14;
+      --card-bg: rgba(255, 255, 255, 0.04);
+      --border: rgba(255, 255, 255, 0.14);
+
+      --text-main: #f1f5f9;
+      --text-muted: #94a3b8;
+
+      --gold: #d4af37;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: "Inter", sans-serif;
+    }
+
+    body {
+      background: radial-gradient(1200px 600px at 50% -200px,
+        #0c1324, var(--bg-main));
+      color: var(--text-main);
+      min-height: 100vh;
+      padding: 70px 20px;
+    }
+
+    /* Container */
+    .container {
+      max-width: 950px;
+      margin: auto;
+    }
+
+    /* Header */
+    .page-header {
+      text-align: center;
+      margin-bottom: 55px;
+    }
+
+    .page-header h1 {
+      font-family: "Cinzel", serif;
+      font-size: 2.6rem;
+      letter-spacing: 1.5px;
+      color: var(--gold);
+
+      /* ✨ Soft Glow */
+      text-shadow: 0 0 10px rgba(212, 175, 55, 0.45);
+    }
+
+    .page-header p {
+      margin-top: 12px;
+      font-size: 1.05rem;
+      color: var(--text-muted);
+    }
+
+    /* Divider */
+    .divider {
+      width: 130px;
+      height: 3px;
+      margin: 18px auto 0;
+      background: linear-gradient(90deg,
+        transparent, var(--gold), transparent);
+    }
+
+    /* Profile Card */
+    .hod-card {
+      display: flex;
+      gap: 30px;
+      padding: 32px;
+
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: 18px;
+      backdrop-filter: blur(10px);
+
+      /* ✨ Low Glow Border */
+      box-shadow: 0 0 25px rgba(212, 175, 55, 0.08);
+
+      align-items: center;
+    }
+
+    /* Image */
+    .hod-photo {
+      width: 170px;
+      height: 190px;
+      border-radius: 16px;
+      object-fit: cover;
+
+      border: 2px solid rgba(212, 175, 55, 0.45);
+      box-shadow: 0 0 18px rgba(212, 175, 55, 0.15);
+    }
+
+    /* Info */
+    .hod-info h2 {
+      font-size: 1.7rem;
+      font-weight: 700;
+      margin-bottom: 6px;
+      color: var(--text-main);
+    }
+
+    .hod-info h3 {
+      font-family: "Cinzel", serif;
+      font-size: 1.05rem;
+      font-weight: 600;
+      color: var(--gold);
+      margin-bottom: 16px;
+
+      /* ✨ Soft Glow */
+      text-shadow: 0 0 8px rgba(212, 175, 55, 0.35);
+    }
+
+    .hod-info p {
+      font-size: 0.95rem;
+      line-height: 1.7;
+      color: var(--text-muted);
+      margin-bottom: 20px;
+      max-width: 520px;
+    }
+
+    /* Contact Icons */
+    .contact-links {
+      display: flex;
+      gap: 14px;
+    }
+
+    .contact-links a {
+      width: 42px;
+      height: 42px;
+      border-radius: 50%;
+
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      border: 1px solid var(--border);
+      background: rgba(255, 255, 255, 0.03);
+
+      color: var(--text-main);
+      text-decoration: none;
+      font-size: 1.1rem;
+
+      transition: 0.25s ease;
+    }
+
+    .contact-links a:hover {
+      border-color: var(--gold);
+      color: var(--gold);
+      background: rgba(212, 175, 55, 0.10);
+
+      /* ✨ Low Glow Hover */
+      box-shadow: 0 0 12px rgba(212, 175, 55, 0.25);
+      transform: scale(1.06);
+    }
+
+    /* Back Button */
+    .back-home {
+      text-align: center;
+      margin-top: 60px;
+    }
+
+    .back-home a {
+      display: inline-block;
+      padding: 12px 28px;
+      border-radius: 30px;
+
+      border: 1px solid var(--gold);
+      color: var(--gold);
+
+      font-family: "Cinzel", serif;
+      text-decoration: none;
+      font-size: 1rem;
+
+      transition: 0.3s;
+    }
+
+    .back-home a:hover {
+      background: var(--gold);
+      color: black;
+      box-shadow: 0 0 18px rgba(212, 175, 55, 0.25);
+      transform: scale(1.05);
+    }
+
+    /* Responsive */
+    @media(max-width: 768px) {
+      .hod-card {
+        flex-direction: column;
+        text-align: center;
+      }
+
+      .contact-links {
+        justify-content: center;
+      }
+
+      .hod-photo {
+        width: 150px;
+        height: 170px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <div class="container">
+
+    <!-- Header -->
+    <div class="page-header">
+      <h1>Head of Department</h1>
+      <div class="divider"></div>
+      <p>Department of CSE (Artificial Intelligence and Machine Learning)</p>
+    </div>
+
+    <!-- HOD Profile -->
+    <div class="hod-card">
+
+      <!-- Image -->
+      <img src="HOD.png" alt="HOD Photo" class="hod-photo">
+
+      <!-- Details -->
+      <div class="hod-info">
+        <h2>Dr. S. Padma</h2>
+        <h3>Assoc. Professor and Head of Department</h3>
+
+        <p>
+          Dr. S. Padma serves as the Head of the Department of Computer Science and Engineering
+          (AI and ML) at MITS Deemed to be University. With strong academic leadership and
+          research excellence, the department is guided towards innovation and future-ready education.
+        </p>
+
+        <!-- Contact Icons -->
+        <div class="contact-links">
+
+          <a href="mailto:drpadmas@mits.ac.in" title="Email">
+            <i class="fas fa-envelope"></i>
+          </a>
+
+          <a href="tel:+919154291788" title="Phone">
+            <i class="fas fa-phone"></i>
+          </a>
+
+          <a href="https://www.linkedin.com/in/padma-selvaraj-b906b0240?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=android_app" target="_blank" title="LinkedIn">
+            <i class="fab fa-linkedin"></i>
+          </a>
+
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Back Button -->
+    <div class="back-home">
+      <a href="index.html"><i class="fas fa-home"></i> Back to Home</a>
+    </div>
+
+  </div>
+
+</body>
+</html>

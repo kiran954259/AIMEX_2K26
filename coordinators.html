@@ -1,0 +1,701 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Team | AIMEX 2K26</title>
+
+  <!-- Fonts -->
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Cinzel:wght@600;700&display=swap"
+    rel="stylesheet">
+
+    <link rel="stylesheet"
+  href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+  <style>
+    :root {
+      --bg-main: #070b14;
+      --bg-grad: #0c1324;
+      --card-bg: rgba(255, 255, 255, 0.04);
+      --border: rgba(255, 255, 255, 0.12);
+      --text-main: #f1f5f9;
+      --text-muted: #94a3b8;
+      --gold: #d4af37;
+      --blue: #3b82f6;
+    }
+
+    /* Reset */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: "Inter", sans-serif;
+    }
+
+    body {
+      background: radial-gradient(1200px 600px at 50% -200px, var(--bg-grad), var(--bg-main));
+      color: var(--text-main);
+      min-height: 100vh;
+    }
+
+    /* Layout */
+    .container {
+      max-width: 1200px;
+      margin: auto;
+      padding: 90px 20px 70px;
+    }
+
+    /* Hero */
+    .hero {
+      text-align: center;
+      margin-bottom: 80px;
+    }
+
+    .hero h1 {
+      font-family: "Cinzel", serif;
+      font-size: 2.8rem;
+      letter-spacing: 1.5px;
+      color: var(--gold);
+    }
+
+    .hero p {
+      margin-top: 14px;
+      color: var(--text-muted);
+      font-size: 1.05rem;
+    }
+
+    /* Divider */
+    .divider {
+      width: 120px;
+      height: 3px;
+      margin: 22px auto 0;
+      background: linear-gradient(90deg, transparent, var(--gold), transparent);
+    }
+
+    /* Section */
+    .section {
+      margin-top: 70px;
+    }
+
+    .section-title {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      margin-bottom: 30px;
+    }
+
+    .section-title span {
+      font-family: "Cinzel", serif;
+      font-size: 1.45rem;
+      color: var(--gold);
+      letter-spacing: 1px;
+    }
+    @media (max-width: 768px) {
+      .section-title span{
+        font-family: "Cinzel", serif;
+      font-size: 1.1rem;
+      color: var(--gold);
+      letter-spacing: 1px;
+      }
+      .section-title::before {
+      content: "";
+      flex: 1;
+      height: 1px;
+      background: linear-gradient(90deg, var(--gold), transparent);
+    }
+    .section-title::after {
+      content: "";
+      flex: 1;
+      height: 1px;
+      background: linear-gradient(90deg, var(--gold), transparent);
+    }
+    }
+     .section-title::before {
+      content: "";
+      flex: 1;
+      height: 1px;
+      background: linear-gradient(90deg, var(--gold), transparent);
+    }
+    .section-title::after {
+      content: "";
+      flex: 1;
+      height: 1px;
+      background: linear-gradient(90deg, var(--gold), transparent);
+    }
+
+    /* Grid */
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 24px;
+    }
+
+    /* Card */
+    .card {
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 22px;
+      backdrop-filter: blur(8px);
+      transition: transform .18s ease, border .18s ease;
+    }
+
+    .card:hover {
+      transform: translateY(-5px);
+      border-color: var(--gold);
+    }
+
+    /* Profile */
+    .profile {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
+
+    .avatar, .usha, .sivaraman, .tharakeswara, .das, .shayeez, .praveen, .sandhya, .udaya, .rajeshwari, .nithin {
+      width: 64px;
+      height: 64px;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 2px solid var(--border);
+      background: #1f2937;
+    }
+
+    .name {
+      font-size: 1.08rem;
+      font-weight: 600;
+    }
+
+    .role {
+      margin-top: 4px;
+      font-size: .9rem;
+      color: var(--text-muted);
+    }
+
+    /* Badge */
+    .badge {
+      display: inline-block;
+      margin-top: 10px;
+      padding: 4px 10px;
+      font-size: .72rem;
+      border-radius: 999px;
+      border: 1px solid var(--gold);
+      color: var(--gold);
+      letter-spacing: .5px;
+    }
+
+    /* Contact */
+    .contact {
+  display: flex;
+  gap: 10px;
+  margin-top: 14px;
+}
+
+.contact a {
+  width: 38px;
+  height: 38px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  border: 1px solid var(--border);
+  text-decoration: none;
+  font-size: 1rem;
+  color: var(--text-main);
+  background: rgba(255,255,255,0.03);
+  transition: all 0.25s ease;
+}
+
+.contact a:hover {
+  border-color: var(--gold);
+  color: var(--gold);
+  background: rgba(212, 175, 55, 0.12);
+  transform: scale(1.08);
+}
+
+
+    /* Footer */
+    footer {
+      margin-top: 90px;
+      text-align: center;
+      font-size: .85rem;
+      color: var(--text-muted);
+      letter-spacing: .4px;
+    }
+
+    /* Responsive */
+    @media(max-width:600px) {
+      .hero h1 {
+        font-size: 2.2rem;
+      }
+    }
+
+    .icon-avatar {
+  font-size: 65px;
+  color: rgb(74, 13, 166);
+}
+
+
+/* ✅ Back Home Button Style */
+.back-home {
+  margin-top: 60px;
+  text-align: center;
+}
+
+.back-home a {
+  display: inline-block;
+  padding: 12px 28px;
+  border-radius: 30px;
+  border: 1px solid var(--gold);
+  color: var(--gold);
+  font-family: "Cinzel", serif;
+  text-decoration: none;
+  font-size: 1rem;
+  transition: 0.3s;
+  margin-bottom: 30px;
+}
+
+.back-home a:hover {
+  background: var(--gold);
+  color: black;
+  transform: scale(1.05);
+}
+
+
+  </style>
+</head>
+
+<body>
+
+  <div class="container">
+
+    <!-- Hero -->
+    <div class="hero">
+      <h1>Organizing Team</h1>
+      <div class="divider"></div>
+      <p>AIMEX 2K26 <br> Department of CSE (AI and ML)</p>
+    </div>
+
+  <section class="section">
+    <div class="section-title"><span>Faculty Co-ordinators</span></div>
+    <div class="grid">
+     <div class="card">
+        <div class="profile">
+          <img src="usha.png" alt="Mrs.R.Usha" class="usha">
+          <div>
+            <div class="name">Mrs.R.Usha</div>
+            <div class="role">Asst.Professor</div>
+            <div class="badge">Faculty</div>
+          </div>
+        </div>
+        <div class="contact">
+          <a href="ushar@mits.ac.in">✉️</a>
+          <a href="tel:+917032389459">📞</a>
+        </div>
+      </div>
+      <div class="card">
+        <div class="profile">
+          <img src="siva.png" alt="Mr.V.Sivaraman" class="sivaraman">
+          <div>
+            <div class="name">Mr.V.Sivaraman</div>
+            <div class="role">Asst.Professor</div>
+            <div class="badge">Faculty</div>
+          </div>
+        </div>
+        <div class="contact">
+          <a href="sivaramanv@mits.ac.in">✉️</a>
+          <a href="tel:+919629590800">📞</a>
+        </div>
+      </div>
+      <div class="card">
+        <div class="profile">
+          <img src="tarak.png" alt="Tharakeswara Raju" class="tharakeswara">
+          <div>
+            <div class="name">Mr.B.Tharakeswara Raju</div>
+            <div class="role">Asst.Professor</div>
+            <div class="badge">Faculty</div>
+          </div>
+        </div>
+        <div class="contact">
+          <a href="tharakeswararajub@mits.ac.in">✉️</a>
+          <a href="tel:+919391916600">📞</a>
+        </div>
+      </div>
+    </div>
+  </section>
+<!-- EVENT CO-ORDINATORS-->
+  <section class="section">
+    <div class="section-title"><span>Event Co-ordinators</span></div>
+    <div class="grid">
+     <div class="card">
+        <div class="profile">
+          <img src="shayeez.png" alt="Mr. BSH. Shayeez Ahamud" class="shayeez">
+          <div>
+            <div class="name">Mr. BSH. Shayeez Ahamud</div>
+            <div class="role">Asst.Professor</div>
+            <div class="badge">TUG- OF-WAR</div>
+            <div class="badge">PROMOTIONS</div>
+            <div class="badge">AV-PREPARATION</div>
+          </div>
+        </div>
+        <div class="contact">
+          <a href="shayeezahamedbsh@mits.ac.in">✉️</a>
+          <a href="tel:+919966390973">📞</a>
+        </div>
+      </div>
+     <div class="card">
+        <div class="profile">
+          <img src="usha.png" alt="Mrs.R.Usha" class="usha">
+          <div>
+            <div class="name">Mrs. R. Usha</div>
+            <div class="role">Asst.Professor</div>
+            <div class="badge">IQNITE</div>
+            <div class="badge">AV-PREPARATION</div>
+          </div>
+        </div>
+        <div class="contact">
+          <a href="ushar@mits.ac.in">✉️</a>
+          <a href="tel:+917032389459">📞</a>
+        </div>
+      </div>
+     <div class="card">
+        <div class="profile">
+          <img src="udaya.png" alt="Mr. P. Udaya Kumar" class="udaya">
+          <div>
+            <div class="name">Mr. P. Udaya Kumar</div>
+            <div class="role">Asst.Professor</div>
+            <div class="badge">GLITCH HUNT</div>
+            <div class="badge">MAGAZINE TEAM</div>
+            <div class="badge">E-SPORTS</div>
+          </div>
+        </div>
+        <div class="contact">
+          <a href="udayakumarp@mits.ac.in">✉️</a>
+          <a href="tel:+916381240108">📞</a>
+        </div>
+      </div>
+     <div class="card">
+        <div class="profile">
+          <img src="sandhya.png" alt="Dr. E. Sandhya" class="sandhya">
+          <div>
+            <div class="name">Dr. E. Sandhya</div>
+            <div class="role">Asst.Professor</div>
+            <div class="badge">TECH QUEENS</div>
+            <div class="badge">CERTIFICATE-PREPARATION</div>
+          </div>
+        </div>
+        <div class="contact">
+          <a href="drsandhyae@mits.ac.in">✉️</a>
+          <a href="tel:+917989189465">📞</a>
+        </div>
+      </div>
+     <div class="card">
+        <div class="profile">
+          <img src="praveen.png" alt="Dr. R. Praveen Kumar" class="praveen">
+          <div>
+            <div class="name">Dr. R. Praveen Kumar</div>
+            <div class="role">Asst.Professor</div>
+            <div class="badge">GRAIN GRAB</div>
+            <div class="badge">MAGAZINE TEAM</div>
+          </div>
+        </div>
+        <div class="contact">
+          <a href="drpraveenkumarr@mits.ac.in">✉️</a>
+          <a href="tel:+919492692166">📞</a>
+        </div>
+      </div>
+     <div class="card">
+        <div class="profile">
+          <img src="raj.png" alt="rajeshwari" class="rajeshwari">
+          <div>
+            <div class="name">Dr. M. Rajeswari</div>
+            <div class="role">Asst.Professor</div>
+            <div class="badge">Paper Xpress</div>
+            <div class="badge">REGISTRATION</div>
+          </div>
+        </div>
+        <div class="contact">
+          <a href="drrajeswarim@mits.ac.in">✉️</a>
+          <a href="tel:+919566358584">📞</a>
+        </div>
+      </div>
+     <div class="card">
+        <div class="profile">
+          <img src="das.png" alt="das" class="das">
+          <div>
+            <div class="name">Mr. Subhas Das</div>
+            <div class="role">Asst.Professor</div>
+            <div class="badge">AUCTION ARENA</div>
+            <div class="badge">COMMUNICATION TEAM</div>
+            <div class="badge">E-SPORTS</div>
+          </div>
+        </div>
+        <div class="contact">
+          <a href="Subhasdas@mits.ac.in">✉️</a>
+          <a href="tel:+917551817633">📞</a>
+        </div>
+      </div>
+      <div class="card">
+        <div class="profile">
+          <img src="siva.png" alt="Mr.V.Sivaraman" class="sivaraman">
+          <div>
+            <div class="name">Mr.V.Sivaraman</div>
+            <div class="role">Asst.Professor</div>
+            <div class="badge">BUZZ GAMES</div>
+            <div class="badge">POSTER & INVITATION</div>
+          </div>
+        </div>
+        <div class="contact">
+          <a href="sivaramanv@mits.ac.in">✉️</a>
+          <a href="tel:+919629590800">📞</a>
+        </div>
+      </div>
+      <div class="card">
+        <div class="profile">
+          <img src="tarak.png" alt="Tharakeswara Raju" class="tharakeswara">
+          <div>
+            <div class="name">Mr.B.Tharakeswara Raju</div>
+            <div class="role">Asst.Professor</div>
+            <div class="badge">AI-TECH-EXHIBIT</div>
+            <div class="badge">COMMUNICATION TEAM</div>
+            <div class="badge">GRAIN GRAB</div>
+          </div>
+        </div>
+        <div class="contact">
+          <a href="tharakeswararajub@mits.ac.in">✉️</a>
+          <a href="tel:+919391916600">📞</a>
+        </div>
+      </div>
+     <div class="card">
+        <div class="profile">
+          <img src="nithin.png" alt="Mr. G. Nithin" class="nithin">
+          <div>
+            <div class="name">Mr. G. Nithin</div>
+            <div class="role">Asst.Professor</div>
+            <div class="badge">DODGE BALL</div>
+            <div class="badge">TUG-OF-WAR</div>
+            <div class="badge">COMMUNICATION TEAM</div>
+          </div>
+        </div>
+        <div class="contact">
+          <a href="nithing@mits.ac.in">✉️</a>
+          <a href="tel:+919440476321">📞</a>
+        </div>
+      </div>
+      </div>
+  </section>
+
+    <section class="section">
+      <div class="section-title"><span>Senior Co-ordinators</span></div>
+      <div class="grid">
+        <div class="card">
+          <div class="profile">
+            <i class="fas fa-user-circle icon-avatar"></i>
+            <div>
+              <div class="name">T.Devendra Reddy</div>
+              <div class="role">Student Lead</div>
+              <div class="badge">Senior</div>
+            </div>
+          </div>
+          <div class="contact">
+            <a href="tel:+919347698116">📞</a>
+          </div>
+        </div>
+        <div class="card">
+          <div class="profile">
+            <i class="fas fa-user-circle icon-avatar"></i>
+            <div>
+              <div class="name">R.Manjunath Reddy</div>
+              <div class="role">Student Lead</div>
+              <div class="badge">Senior</div>
+            </div>
+          </div>
+          <div class="contact">
+            <a href="tel:+917981856875">📞</a>
+          </div>
+        </div>
+        <div class="card">
+          <div class="profile">
+            <i class="fas fa-user-circle icon-avatar"></i>
+            <div>
+              <div class="name">M.Mohan Krishna</div>
+              <div class="role">Student Lead</div>
+              <div class="badge">Senior</div>
+            </div>
+          </div>
+          <div class="contact">
+            <a href="tel:+918328057598">📞</a>
+          </div>
+        </div>
+        <div class="card">
+          <div class="profile">
+            <i class="fas fa-user-circle icon-avatar"></i>
+            <div>
+              <div class="name">C.Pranitha</div>
+              <div class="role">Student Lead</div>
+              <div class="badge">Senior</div>
+            </div>
+          </div>
+          <div class="contact">
+            <a href="tel:+919866830039">📞</a>
+          </div>
+        </div>
+        <div class="card">
+          <div class="profile">
+            <i class="fas fa-user-circle icon-avatar"></i>
+            <div>
+              <div class="name">K.Saiswapna</div>
+              <div class="role">Student Lead</div>
+              <div class="badge">Senior</div>
+            </div>
+          </div>
+          <div class="contact">
+            <a href="tel:+919346019489">📞</a>
+          </div>
+        </div>
+        <div class="card">
+          <div class="profile">
+            <i class="fas fa-user-circle icon-avatar"></i>
+            <div>
+              <div class="name">K.Vineesha Reddy</div>
+              <div class="role">Student Lead</div>
+              <div class="badge">Senior</div>
+            </div>
+          </div>
+          <div class="contact">
+            <a href="tel:+917093098331">📞</a>
+          </div>
+        </div>
+    </div>
+    </section>
+
+<!-- Coordinators -->
+<section class="section">
+  <div class="section-title"><span>Co-ordinators</span></div>
+  <div class="grid">
+
+    <div class="card">
+      <div class="profile">
+        <i class="fas fa-user-circle icon-avatar"></i>
+        <div>
+          <div class="name">K.Babu Reddy</div>
+          <div class="role">Team Member</div>
+          <div class="badge">Coordinator</div>
+        </div>
+      </div>
+      <div class="contact">
+        <a href="tel:+918121267238" aria-label="Call">📞</a>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="profile">
+        <i class="fas fa-user-circle icon-avatar"></i>
+        <div>
+          <div class="name">G.Divya</div>
+          <div class="role">Team Member</div>
+          <div class="badge">Coordinator</div>
+        </div>
+      </div>
+      <div class="contact">
+        <a href="tel:+916301448192">📞</a>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="profile">
+        <i class="fas fa-user-circle icon-avatar"></i>
+        <div>
+          <div class="name">J.Hiteshwar</div>
+          <div class="role">Team Member</div>
+          <div class="badge">Coordinator</div>
+        </div>
+      </div>
+      <div class="contact">
+        <a href="tel:+918125039586">📞</a>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="profile">
+        <i class="fas fa-user-circle icon-avatar"></i>
+        <div>
+          <div class="name">CH.Kundana</div>
+          <div class="role">Team Member</div>
+          <div class="badge">Coordinator</div>
+        </div>
+      </div>
+      <div class="contact">
+        <a href="tel:+917893496156">📞</a>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="profile">
+        <i class="fas fa-user-circle icon-avatar"></i>
+        <div>
+          <div class="name">K.Reddy Lakshmi</div>
+          <div class="role">Team Member</div>
+          <div class="badge">Coordinator</div>
+        </div>
+      </div>
+      <div class="contact">
+        <a href="tel:+919000000025">📞</a>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="profile">
+        <i class="fas fa-user-circle icon-avatar"></i>
+        <div>
+          <div class="name">S.Shafiya</div>
+          <div class="role">Team Member</div>
+          <div class="badge">Coordinator</div>
+        </div>
+      </div>
+      <div class="contact">
+        <a href="tel:+919491259815">📞</a>
+      </div>
+    </div>
+       <div class="card">
+      <div class="profile">
+        <i class="fas fa-user-circle icon-avatar"></i>
+        <div>
+          <div class="name">B.Vijay Goud</div>
+          <div class="role">Team Member</div>
+          <div class="badge">Coordinator</div>
+        </div>
+      </div>
+      <div class="contact">
+        <a href="tel:+919390059195">📞</a>
+      </div>
+    </div>
+       <div class="card">
+      <div class="profile">
+        <i class="fas fa-user-circle icon-avatar"></i>
+        <div>
+          <div class="name">B.Vimal</div>
+          <div class="role">Team Member</div>
+          <div class="badge">Coordinator</div>
+        </div>
+      </div>
+      <div class="contact">
+        <a href="tel:+918247532607">📞</a>
+      </div>
+    </div>
+  </div>
+</section>
+  </div>
+
+  <!-- ✅ Back to Home Button -->
+<div class="back-home">
+  <a href="index.html">
+    <i class="fas fa-home"></i> Back to Home
+  </a>
+</div>
+
+</body>
+
+</html>

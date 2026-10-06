@@ -1,0 +1,1235 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AIMEX 2K26 | Technical Events</title>
+
+  <link href="https://fonts.googleapis.com/css2?family=EB+Garamond&family=Cinzel:wght@500;700&display=swap"
+    rel="stylesheet">
+
+  <style>
+    /* ================= GLOBAL ================= */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html, body {
+  width: 100%;
+  min-height: 100%;
+  background: black;     /* ✅ Prevent white gaps */
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: 'EB Garamond', serif;
+  color: white;
+  overflow-x: hidden;
+}
+
+
+    /* ================= VIDEO BACKGROUND ================= */
+    .bg-video {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      z-index: -3;
+    }
+
+    /* Dark Overlay */
+    .video-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(0, 0, 0, 0.78);
+  z-index: -2;
+}
+  .bg-video {
+    background: black;
+  }
+
+  .bg-video {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  object-fit: cover;
+  z-index: 0;
+}
+
+.video-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.75);
+  z-index: 1;
+}
+
+body * {
+  position: relative;
+  z-index: 2;
+}
+
+
+
+    /* ================= NEW HEADER ================= */
+    .top-header {
+      width: 100%;
+      height: 120px;
+      padding:50px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      background: rgba(0, 0, 0, 0.40);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid rgba(76, 201, 240, 0.4);
+    }
+@media (max-width: 768px) {
+      .top-header {
+        padding:1px;
+        height:145px;
+      }
+    }
+    /* LEFT LOGO */
+    .header-left img {
+      height: 85px;
+    }
+
+    /* CENTER TITLE */
+    .header-center {
+      text-align: center;
+      flex: 1;
+    }
+
+    .header-center h1 {
+      font-family: 'Cinzel', serif;
+      font-size: 2.8rem;
+      color: #4cc9f0;
+      letter-spacing: 4px;
+    }
+
+    .header-center p {
+      font-size: 1rem;
+      opacity: 0.85;
+      margin-top: 6px;
+    }
+
+    /* RIGHT DOOR */
+    .header-right {
+      font-size: 2rem;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+
+    .header-right:hover {
+      transform: scale(1.2);
+      filter: drop-shadow(0 0 12px #4cc9f0);
+    }
+
+    /* ================= PAGE TITLE ================= */
+    .page-title {
+      text-align: center;
+      font-family: 'Cinzel', serif;
+      font-size: 2.6rem;
+      margin: 40px 0;
+      letter-spacing: 6px;
+      color: #4cc9f0;
+      text-shadow: 0 0 18px #4cc9f0;
+    }
+
+    /* ================= GRID ================= */
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 70px;
+      justify-items: center;
+      padding: 40px 10%;
+    }
+
+    /* ================= CARD FRAME ================= */
+    .event-frame {
+      width: 330px;
+      height: 290px;
+      position: relative;
+      border-radius: 18px;
+      cursor: pointer;
+      perspective: 1300px;
+    }
+
+    /* Neon Border */
+    .event-frame::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      border-radius: 18px;
+      padding: 2px;
+      background: linear-gradient(45deg, #ff4500, #ff9f1c, #f72585, #7209b7, #4cc9f0, #ff4500);
+      background-size: 300% 300%;
+      animation: borderFlow 3s linear infinite;
+      -webkit-mask:
+        linear-gradient(#000 0 0) content-box,
+        linear-gradient(#000 0 0);
+      -webkit-mask-composite: xor;
+      mask-composite: exclude;
+    }
+
+    @keyframes borderFlow {
+      to {
+        background-position: 300% 50%;
+      }
+    }
+
+    /* Flip Inner */
+    .flip-inner {
+      position: absolute;
+      inset: 7px;
+      border-radius: 14px;
+      transform-style: preserve-3d;
+      transition: transform .85s cubic-bezier(.4, .2, .2, 1);
+    }
+
+    .event-frame.flipped .flip-inner {
+      transform: rotateY(180deg);
+    }
+
+    /* Front + Back */
+    .flip-front,
+    .flip-back {
+      position: absolute;
+      inset: 0;
+      border-radius: 14px;
+      backface-visibility: hidden;
+      overflow: hidden;
+      background: rgba(255, 255, 255, .08);
+      backdrop-filter: blur(10px);
+      display: flex;
+      flex-direction: column;
+    }
+
+    /* FRONT */
+    .flip-front img {
+      width: 100%;
+      height: 180px;
+      object-fit: cover;
+    }
+
+    .front-text {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      padding: 15px;
+    }
+
+    .front-text h3 {
+      font-family: 'Cinzel', serif;
+      font-size: 1.25rem;
+      margin-bottom: 6px;
+    }
+
+    .front-text p {
+      font-size: .95rem;
+      opacity: .85;
+    }
+
+    /* BACK */
+    .flip-back {
+      transform: rotateY(180deg);
+      padding: 12px;
+      align-items: center;
+    }
+
+    .back-title {
+      font-family: 'Cinzel', serif;
+      font-size: 1.05rem;
+      margin-bottom: 10px;
+      color: #4cc9f0;
+      text-shadow: 0 0 10px #4cc9f0;
+    }
+
+    /* Poster */
+    .poster-wrap {
+      position: relative;
+      width: 100%;
+    }
+
+    .poster-wrap img {
+      width: 100%;
+      height: 140px;
+      object-fit: cover;
+      border-radius: 12px;
+      border: 1px solid rgba(76, 201, 240, .6);
+    }
+
+    /* Expand */
+    .expand-btn {
+      position: absolute;
+      bottom: 10px;
+      right: 10px;
+      width: 28px;
+      height: 28px;
+      border: 1px solid #4cc9f0;
+      background: rgba(0, 0, 0, .6);
+      color: #4cc9f0;
+      border-radius: 5px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .expand-btn:hover {
+      background: #4cc9f0;
+      color: black;
+    }
+
+    /* BUTTON GROUP */
+    .btn-group {
+      margin-top: 14px;
+      display: flex;
+      gap: 12px;
+    }
+
+    .event-btn {
+      padding: 10px 18px;
+      border-radius: 25px;
+      font-family: 'Cinzel', serif;
+      font-size: .85rem;
+      letter-spacing: 1px;
+      cursor: pointer;
+      border: 1px solid #4cc9f0;
+      transition: .3s;
+    }
+
+    .details-btn {
+      background: transparent;
+      color: #4cc9f0;
+    }
+
+    .details-btn:hover {
+      background: #4cc9f0;
+      color: black;
+    }
+
+    .register-btn {
+      background: #4cc9f0;
+      color: black;
+    }
+
+    .register-btn:hover {
+      transform: scale(1.07);
+      box-shadow: 0 0 18px #4cc9f0;
+    }
+
+    /* ================= FULLSCREEN POSTER ================= */
+    .poster-view {
+      position: fixed;
+      inset: 0;
+      background: rgba(0, 0, 0, .92);
+      display: none;
+      justify-content: center;
+      align-items: center;
+      z-index: 2000;
+    }
+
+    .poster-view img {
+      max-width: 90vw;
+      max-height: 80vh;
+      object-fit: contain;
+      border-radius: 16px;
+    }
+
+    .poster-close {
+      position: absolute;
+      top: 20px;
+      right: 25px;
+      width: 42px;
+      height: 42px;
+      border-radius: 50%;
+      background: red;
+      color: white;
+      font-size: 22px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+    }
+
+   /* ================= PREMIUM AIMEX MODAL ================= */
+
+.modal {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.85);
+  backdrop-filter: blur(8px);
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+  z-index: 4000;
+}
+
+.modal-box {
+  background: rgba(20, 20, 20, 0.95);
+  width: 100%;
+  max-width: 900px;
+  max-height: 90vh;
+  overflow-y: auto;
+  border-radius: 18px;
+  padding: 35px;
+  scroll-behavior: smooth;
+  border: 1px solid rgba(76, 201, 240, 0.5);
+  box-shadow: 0 0 40px rgba(76, 201, 240, 0.3);
+  color: white;
+}
+.modal-box::-webkit-scrollbar {
+  width: 6px;
+}
+
+.modal-box::-webkit-scrollbar-thumb {
+  background: #4cc9f0;
+  border-radius: 10px;
+}
+
+/* Title */
+.modal-box h2,
+.event-title {
+  text-align: center;
+  font-family: 'Cinzel', serif;
+  font-size: 26px;
+  color: #4cc9f0;
+  margin-bottom: 12px;
+  text-shadow: 0 0 10px #4cc9f0;
+}
+
+.event-desc {
+  text-align: center;
+  opacity: 0.8;
+  margin-bottom: 25px;
+}
+
+/* Section */
+.section {
+  margin-bottom: 30px;
+}
+
+.section h3 {
+  font-family: 'Cinzel', serif;
+  font-size: 18px;
+  margin-bottom: 15px;
+  color: #4cc9f0;
+}
+
+/* Coordinators Grid */
+.coordinator-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 15px;
+}
+
+.coordinator-card {
+  background: rgba(255, 255, 255, 0.05);
+  padding: 15px;
+  border-radius: 12px;
+  border: 1px solid rgba(76, 201, 240, 0.3);
+  transition: 0.3s ease;
+}
+
+.coordinator-card:hover {
+  background: rgba(76, 201, 240, 0.08);
+  transform: translateY(-3px);
+}
+
+.coordinator-card p {
+  color: #ffffff;
+  font-weight: 500;
+}
+
+.coordinator-card strong {
+  color: #ffffff;
+  font-size: 13px;
+  letter-spacing: 0.5px;
+}
+
+.coordinator-card a {
+  text-decoration: none;
+  color: #4cc9f0;
+  font-weight: 500;
+}
+
+.rules-section ol {
+  padding-left: 20px;
+  line-height: 1.6;
+}
+
+.team-size {
+  margin-top: 15px;
+  font-weight: 600;
+  color: gold;
+}
+
+/* Close Button */
+.close-btn {
+  width: 100%;
+  padding: 12px;
+  border-radius: 30px;
+  border: 1px solid red;
+  background: transparent;
+  color: red;
+  cursor: pointer;
+  margin-top: 15px;
+  transition: 0.3s ease;
+}
+
+.close-btn:hover {
+  background: red;
+  color: black;
+}
+
+/* MOBILE RESPONSIVE */
+@media (max-width: 768px) {
+
+  .modal-box {
+    padding: 22px;
+  }
+
+  .coordinator-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .event-title {
+    font-size: 20px;
+  }
+
+  .section h3 {
+    font-size: 16px;
+  }
+}
+.reel-icon {
+  display: inline-block;
+  margin-top: 8px;
+  font-size: 14px;
+  color: #ff4d6d;
+  text-decoration: none;
+}
+
+.reel-icon:hover {
+  text-shadow: 0 0 8px #ff4d6d;
+}
+  </style>
+</head>
+
+<body>
+
+  <!-- 🎥 VIDEO BACKGROUND -->
+  <video class="bg-video" autoplay muted loop playsinline preload="auto">
+    <source src="eventsbg.mp4" type="video/mp4">
+  </video>
+  <div class="video-overlay"></div>
+
+  <!-- ✅ HEADER -->
+  <div class="top-header">
+
+    <div class="header-left">
+      <img src="AIMEX-LOGO.png" alt="Logo">
+    </div>
+
+    <div class="header-center">
+      <h1>MITS</h1>
+      <p>Madanapalle Institute of Technology & Science<br> Deemed to be University,<br>Andhra Pradesh</p></p>
+    </div>
+
+    <!-- ✅ Back to Home Button -->
+<div class="header-right" onclick="window.location.href='index.html'">
+      🏠<p style="font-size:15px;">Back to Home</p>
+    </div>
+
+
+
+  </div>
+
+  <h1 class="page-title">TECHNICAL EVENTS</h1>
+
+  <div class="grid">
+
+    <!-- PAPER XPRESS -->
+    <div class="event-frame flip-card">
+      <div class="flip-inner">
+        <div class="flip-front">
+          <img src="paper1.png" alt="paper-xpress">
+          <div class="front-text">
+            <h3>PAPER XPRESS</h3>
+            <p>Innovative Research Ideas</p>
+          </div>
+        </div>
+
+        <div class="flip-back">
+          <div class="back-title">PAPER XPRESS POSTER</div>
+
+          <div class="poster-wrap">
+            <img src="paper.png" alt="paper-poster">
+            <div class="expand-btn" onclick="openPoster(this)">[ ]</div>
+          </div>
+
+          <div class="btn-group">
+            <button type="button" class="event-btn details-btn" onclick="openModal('paperDetails')">DETAILS</button>
+            <button type="button" class="event-btn register-btn" onclick="openModal('paperRegister')">REGISTER</button>
+            <a href="https://www.instagram.com/reel/DUyD6W0jF7f/?igsh=MWVuYTJlOGhyMzV5dg=="
+            target="_blank"
+            class="reel-icon">
+            🎬
+          </a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- AI TECH -->
+    <div class="event-frame flip-card">
+      <div class="flip-inner">
+        <div class="flip-front">
+          <img src="ai1.png" alt="ai-tech">
+          <div class="front-text">
+            <h3>AI-TECH EXHIBIT</h3>
+            <p>Build Smart Solutions</p>
+          </div>
+        </div>
+
+        <div class="flip-back">
+          <div class="back-title">AI-TECH POSTER</div>
+
+          <div class="poster-wrap">
+            <img src="ai-tech.png" alt="ai">
+            <div class="expand-btn" onclick="openPoster(this)">[ ]</div>
+          </div>
+
+          <div class="btn-group">
+            <button type="button" class="event-btn details-btn" onclick="openModal('aiDetails')">DETAILS</button>
+            <button type="button" class="event-btn register-btn" onclick="openModal('aiRegister')">REGISTER</button>
+            <a href="https://www.instagram.com/reel/DU7xz1Hj6zh/?igsh=MTExNHk2bmllYm82MA=="
+            target="_blank"
+            class="reel-icon">
+            🎬
+          </a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- IQNITE -->
+    <div class="event-frame flip-card">
+      <div class="flip-inner">
+        <div class="flip-front">
+          <img src="IQNITE1.png" alt="iqnite">
+          <div class="front-text">
+            <h3>IQNITE</h3>
+            <p>Test AI Knowledge</p>
+          </div>
+        </div>
+
+        <div class="flip-back">
+          <div class="back-title">IQNITE POSTER</div>
+
+          <div class="poster-wrap">
+            <img src="IQNITE.png" alt="iqnite-poster">
+            <div class="expand-btn" onclick="openPoster(this)">[ ]</div>
+          </div>
+
+          <div class="btn-group">
+            <button type="button" class="event-btn details-btn" onclick="openModal('iqDetails')">DETAILS</button>
+            <button type="button" class="event-btn register-btn" onclick="openModal('iqRegister')">REGISTER</button>
+            <a href="https://www.instagram.com/reel/DU2nPnnD6VU/?igsh=ZzFwcXh1OXpsbzZ5"
+            target="_blank"
+            class="reel-icon">
+            🎬
+          </a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- GLITCH HUNT -->
+    <div class="event-frame flip-card">
+      <div class="flip-inner">
+        <div class="flip-front">
+          <img src="glitch1.png" alt="glitch">
+          <div class="front-text">
+            <h3>GLITCH HUNT</h3>
+            <p>Fix Code Errors</p>
+          </div>
+        </div>
+
+        <div class="flip-back">
+          <div class="back-title">GLITCH POSTER</div>
+
+          <div class="poster-wrap">
+            <img src="glitch.png" alt="glitch-poster">
+            <div class="expand-btn" onclick="openPoster(this)">[ ]</div>
+          </div>
+
+          <div class="btn-group">
+            <button type="button" class="event-btn details-btn" onclick="openModal('glitchDetails')">DETAILS</button>
+            <button type="button" class="event-btn register-btn" onclick="openModal('glitchRegister')">REGISTER</button>
+            <a href="https://instagram.com/your-reel-link"
+            target="_blank"
+            class="reel-icon">
+            🎬
+          </a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- TECH QUEENS -->
+    <div class="event-frame flip-card">
+      <div class="flip-inner">
+        <div class="flip-front">
+          <img src="tech1.png" alt="tech-queens">
+          <div class="front-text">
+            <h3>TECH QUEENS</h3>
+            <p>Showcase Projects</p>
+          </div>
+        </div>
+
+        <div class="flip-back">
+          <div class="back-title">TECH QUEENS POSTER</div>
+
+          <div class="poster-wrap">
+            <img src="tech-queens.png" alt="tech-queens-poster">
+            <div class="expand-btn" onclick="openPoster(this)">[ ]</div>
+          </div>
+
+          <div class="btn-group">
+            <button type="button" class="event-btn details-btn" onclick="openModal('queensDetails')">DETAILS</button>
+            <button type="button" class="event-btn register-btn" onclick="openModal('queensRegister')">REGISTER</button>
+            <a href="https://www.instagram.com/reel/DU8H9xlj9bn/?igsh=MWN0NGdlb21xY2RhMw=="
+            target="_blank"
+            class="reel-icon">
+            🎬
+          </a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- FULLSCREEN POSTER -->
+  <div class="poster-view" id="posterView">
+    <div class="poster-close" onclick="closePoster()">✕</div>
+    <img id="posterImg" src="">
+  </div>
+
+ <div class="modal" id="paperDetails">
+  <div class="modal-box">
+
+    <h2 class="event-title">PAPER XPRESS</h2>
+    <p class="event-desc">
+      Paper Presentation Competition for innovative research ideas.
+    </p>
+
+    <!-- Coordinators -->
+    <div class="section">
+      <h3>🎓 Event Coordinators</h3>
+
+      <div class="coordinator-grid">
+
+        <div class="coordinator-card">
+          <strong>Faculty Coordinator</strong>
+          <p>Dr. M. Rajeswari</p>
+          <a href="tel:+919566358584">📞 +91 9566358584</a>
+        </div>
+
+        <div class="coordinator-card">
+          <strong>Senior Coordinator</strong>
+          <p>Pavani</p>
+          <a href="tel:+919052983757">📞 +91 9052983757</a>
+        </div>
+
+        <div class="coordinator-card">
+          <strong>Coordinator</strong>
+          <p>Sanju Sree</p>
+          <a href="tel:+917285950090">📞 +91 7285950090</a>
+        </div>
+
+        <div class="coordinator-card">
+          <strong>Coordinator</strong>
+          <p>Guru Vydehi</p>
+          <a href="tel:+918790365431">📞 +91 8790365431</a>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- Rules -->
+    <div class="section rules-section">
+      <h3>📜 Rules & Guidelines</h3>
+      <ol>
+        <li>The presentation will be conducted in Hybrid Mode. For other state students,
+          the presentation will be held online on 4th March from 4:00 PM to 6:00 PM</li>
+       <li>Every participant must prepare their own PPT.</li>
+      <li>You can choose your own theme for the presentation.</li>
+      <li>The last date to submit the PPT is <strong>01-03-2026</strong>.</li>
+      <li>Plagiarism will be checked, and acceptance will be given on <strong>02-03-2026</strong>.</li>
+      <li>Team size: <strong>Minimum 1 member and maximum 3 members</strong> per team.</li>
+      <li>The PPT must contain <strong>6–7 slides</strong>.</li>
+      </ol>
+
+      <p class="team-size">
+        👥 <strong>Team Size:</strong> 1 – 3 Participants
+      </p>
+    </div>
+
+    <button type="button" class="close-btn" onclick="closeModal('paperDetails')">
+      Close
+    </button>
+
+  </div>
+</div>
+
+
+
+ <div class="modal" id="aiDetails">
+  <div class="modal-box">
+
+    <!-- Title -->
+    <h2 class="event-title">AI-TECH EXHIBIT</h2>
+    <p class="event-desc">
+      Showcase AI-based innovative solutions, working models, or intelligent systems demonstrating real-world applications.
+    </p>
+
+    <!-- Coordinators Section -->
+    <div class="section">
+      <h3>Event Coordinators</h3>
+
+      <div class="coordinator-grid">
+
+        <div class="coordinator-card">
+          <p><strong>Faculty Coordinator</strong></p>
+          <p>Mr. B. Tharakeswara Raju</p>
+          <a href="tel:+919391916600">📞 +91 9391916600</a>
+        </div>
+
+        <div class="coordinator-card">
+          <p><strong>Senior Coordinator</strong></p>
+          <p>Priya Darshini</p>
+          <a href="tel:+919014989332">📞 +91 9014989332</a>
+        </div>
+
+        <div class="coordinator-card">
+          <p><strong>Coordinator</strong></p>
+          <p>Rudra Teja</p>
+          <a href="tel:+919440058160">📞 +91 9440058160</a>
+        </div>
+
+        <div class="coordinator-card">
+          <p><strong>Coordinator</strong></p>
+          <p>Jashwanth</p>
+          <a href="tel:+919063020479">📞 +91 9063020479</a>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- Rules Section -->
+    <div class="section rules-section">
+      <h3>Event Rules</h3>
+      <ol>
+        <li>Minimum 5 slides and maximum 10 slides are allowed.</li>
+        <li>Presentation time must be strictly between 4-5 minutes.</li>
+        <li>Participation is allowed individually or in teams of up to 3 members.</li>
+        <li>AI tools are permitted, but effective usage is important.</li>
+        <li>Content should be clear, logical, and original.</li>
+        <li>Plagiarism or copied content will lead to low marks or disqualification.</li>
+        <li>Marks are based on explanation clarity, AI relevance, innovation, and presentation skills.</li>
+        <li>Participants must follow all event rules and maintain discipline.</li>
+      </ol>
+
+      <p class="team-size">Team Size: 1 – 3 Members</p>
+    </div>
+
+    <!-- Close Button -->
+    <button type="button" class="close-btn" onclick="closeModal('aiDetails')">
+      Close
+    </button>
+
+  </div>
+</div>
+<div class="modal" id="iqDetails">
+  <div class="modal-box">
+
+    <h2>IQNITE</h2>
+
+    <p class="event-desc">
+      IQNITE is a competitive quiz event designed to test participants'
+      knowledge in Artificial Intelligence and Machine Learning
+      through multiple challenging rounds.
+    </p>
+
+    <!-- COORDINATOR SECTION -->
+    <div class="coordinator-section">
+      <h3>Event Coordinators</h3>
+
+      <div class="coordinator-grid">
+
+        <div class="coordinator-card">
+          <h4>Faculty Coordinator</h4>
+          <p>Mrs. R. Usha</p>
+          <a href="tel:+917032389459">📞 +91 7032389459</a>
+        </div>
+
+        <div class="coordinator-card">
+          <h4>Senior Coordinator</h4>
+          <p>Kumar Raja</p>
+          <a href="tel:+919849411037">📞 +91 9849411037</a>
+        </div>
+
+        <div class="coordinator-card">
+          <h4>Senior Coordinator</h4>
+          <p>Karthik</p>
+          <a href="tel:+919959186924">📞 +91 9959186924</a>
+        </div>
+
+        <div class="coordinator-card">
+          <h4>Coordinator</h4>
+          <p>Kusuma</p>
+          <a href="tel:+918897932748">📞 +91 8897932748</a>
+        </div>
+
+        <div class="coordinator-card">
+          <h4>Coordinator</h4>
+          <p>Naga Charitha</p>
+          <a href="tel:+919177505560">📞 +91 9177505560</a>
+        </div>
+
+        <div class="coordinator-card">
+          <h4>Coordinator</h4>
+          <p>Bhavitha</p>
+          <a href="tel:+919390286782">📞 +91 9390286782</a>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- RULES SECTION -->
+    <div class="rules-section">
+      <h3>🧩 IQNITE RULES</h3>
+      <ol>
+        <li>Participants must compete individually.</li>
+        <li>Mobiles, smart watches, and internet are strictly prohibited.</li>
+        <li>Any malpractice results in immediate disqualification.</li>
+        <li>Report 15 minutes early to the venue.</li>
+        <li>Judges’ and coordinators’ decisions are final.</li>
+        <li>Top 50% advance to Round 2.</li>
+        <li>Top 30–40% advance to Round 3.</li>
+        <li>Top one participant is the winner.</li>
+      </ol>
+    </div>
+
+    <button type="button" class="close-btn" onclick="closeModal('iqDetails')">
+      Close
+    </button>
+
+  </div>
+</div>
+
+
+
+
+ <div class="modal" id="glitchDetails">
+  <div class="modal-box">
+
+    <h2>GLITCH HUNT</h2>
+
+    <p class="event-desc">
+      Debugging competition to fix errors quickly.
+    </p>
+     <h3>🎓 Event Coordinators</h3>
+    <!-- COORDINATORS SECTION -->
+    <div class="coordinator-grid">
+
+      <div class="coordinator-card">
+        <h4>Faculty Coordinator</h4>
+        <p>Mr. P. Udaya Kumar</p>
+        <a href="tel:+916381240108">📞 +91 6381240108</a>
+      </div>
+
+      <div class="coordinator-card">
+        <h4>Sr. Coordinator</h4>
+        <p>Gowthami</p>
+        <a href="tel:+919347001613">📞 +91 9347001613</a>
+      </div>
+
+      <div class="coordinator-card">
+        <h4>Coordinator</h4>
+        <p>Amrutha</p>
+        <a href="tel:+918712240192">📞 +91 8712240192</a>
+      </div>
+
+      <div class="coordinator-card">
+        <h4>Coordinator</h4>
+        <p>Likitha</p>
+        <a href="tel:+919346166450">📞 +91 9346166450</a>
+      </div>
+
+    </div>
+     <!-- RULES SECTION -->
+    <div class="rules-section">
+      <h3>🧩 GLITCH HUNT RULES</h3>
+      <ol>
+        <li>Team participation as per event guidelines.</li>
+        <li>Participants must follow the time limits for each level.</li>
+        <li>Judges’ and coordinators’ decisions will be final and binding.</li>
+      </ol>
+    </div>
+
+    <button type="button" class="close-btn"
+      onclick="closeModal('glitchDetails')">
+      Close
+    </button>
+
+  </div>
+</div>
+
+<div class="modal" id="queensDetails">
+  <div class="modal-box">
+
+    <h2>TECH QUEENS</h2>
+
+    <p class="event-desc">
+      Project showcase event for innovative ideas.
+    </p>
+     <div class="themes">
+      <h3>🌸 TECH QUEENS THEMES</h3>
+      <p style="text-align:center; max-width:800px; margin:10px auto 20px;">
+        We invite innovative solutions that are scalable, widely implementable, and capable of generating meaningful public value across a range of sectors.
+        Participants are encouraged to propose solutions that clearly demonstrate significant societal impact.
+      </p>
+
+      <ul>
+        <li>Women’s Health & Wellness Tech</li>
+        <li>Safety, Security & Digital Protection</li>
+        <li>Women in Education & Skill Development</li>
+        <li>Financial Independence & Entrepreneurship</li>
+        <li>Career Growth</li>
+        <li>Women Empowerment</li>
+        <li>Social Awareness</li>
+        <li>Gender Equality</li>
+        <li>Sustainable Living & Rural Development</li>
+        <li>Open Innovation</li>
+      </ul>
+    </div>
+    <!-- COORDINATORS SECTION (First) -->
+    <div class="coordinator-grid">
+
+      <div class="coordinator-card">
+        <h4>Faculty Coordinator</h4>
+        <p>Dr. E. Sandhya</p>
+        <a href="tel:+917989189465">📞 +91 7989189465</a>
+      </div>
+
+      <div class="coordinator-card">
+        <h4>Faculty Coordinator</h4>
+        <p>Mr. P. Azam</p>
+        <a href="tel:+919876543210">📞 +91 9876543210</a>
+      </div>
+
+      <div class="coordinator-card">
+        <h4>Sr. Coordinator</h4>
+        <p>Akhila</p>
+        <a href="tel:+919390258904">📞 +91 9390258904</a>
+      </div>
+
+      <div class="coordinator-card">
+        <h4>Coordinator</h4>
+        <p>Chandana Deepthi</p>
+        <a href="tel:+919347742160">📞 +91 9347742160</a>
+      </div>
+
+      <div class="coordinator-card">
+        <h4>Coordinator</h4>
+        <p>Niharika</p>
+        <a href="tel:+919440358409">📞 +91 9440358409</a>
+      </div>
+
+      <div class="coordinator-card">
+        <h4>Coordinator</h4>
+        <p>Tejomai</p>
+        <a href="tel:+918247048165">📞 +91 8247048165</a>
+      </div>
+
+    </div>
+
+    <!-- RULES SECTION (After Coordinators) -->
+    <div class="rules-section">
+      <h3>🧩 TECH QUEENS RULES</h3>
+      <ol>
+        <li>Report to the venue on time.</li>
+        <li>Event is exclusively for girls.</li>
+        <li>Participation allowed as individual or duo.</li>
+        <li>PPT must include problem, explanation & solution.</li>
+        <li>Slides limit: 7–8 slides.</li>
+        <li>PowerPoint (PPT) is preferred.</li>
+        <li>Time limit: approx. 10 minutes per participant.</li>
+        <li>Judges’ decision will be final.</li>
+      </ol>
+    </div>
+
+    <button type="button" class="close-btn"
+      onclick="closeModal('queensDetails')">
+      Close
+    </button>
+
+  </div>
+</div>
+
+
+
+  <!-- REGISTER MODALS -->
+  <div class="modal" id="paperRegister">
+    <div class="modal-box">
+      <h2>PAPER XPRESS</h2>
+      <p>Select Registration Type</p>
+      <button type="button" class="event-btn register-btn" onclick="window.open('https://forms.gle/EUPDawuvHE2fb6jW8')">Internal
+        ₹60</button>
+      <br><br>
+      <button type="button" class="event-btn register-btn" onclick="window.open('https://forms.gle/h12NFtyYmn7gwZsT8')">External
+        ₹120</button>
+      <br><br>
+      <button type="button" class="close-btn" onclick="closeModal('paperRegister')">Close</button>
+    </div>
+  </div>
+
+  <div class="modal" id="aiRegister">
+    <div class="modal-box">
+      <h2>AI-TECH EXHIBIT</h2>
+      <p>Select Registration Type</p>
+      <button type="button" class="event-btn register-btn" onclick="window.open('https://forms.gle/cUnrMmipHkeC2Tkp6')">Internal
+        ₹60</button>
+      <br><br>
+      <button type="button" class="event-btn register-btn" onclick="window.open('https://forms.gle/7GqVqJxrA48BegWq8')">External
+        ₹120</button>
+      <br><br>
+      <button type="button" class="close-btn" onclick="closeModal('aiRegister')">Close</button>
+    </div>
+  </div>
+
+  <div class="modal" id="iqRegister">
+    <div class="modal-box">
+      <h2>IQNITE</h2>
+      <p>Select Registration Type</p>
+      <button type="button" class="event-btn register-btn" onclick="window.open('https://forms.gle/vuuYntZEM6EYRYn46')">Internal
+        ₹60</button>
+      <br><br>
+      <button type="button" class="event-btn register-btn" onclick="window.open('https://forms.gle/iRqvEshtDNFMANt17')">External
+        ₹120</button>
+      <br><br>
+      <button type="button" class="close-btn" onclick="closeModal('iqRegister')">Close</button>
+    </div>
+  </div>
+
+  <div class="modal" id="glitchRegister">
+    <div class="modal-box">
+      <h2>GLITCH HUNT</h2>
+      <p>Select Registration Type</p>
+      <button type="button" class="event-btn register-btn" onclick="window.open('https://forms.gle/KwdT4fSWQdtkWHio7')">Internal
+        ₹60</button>
+      <br><br>
+      <button type="button" class="event-btn register-btn" onclick="window.open('https://forms.gle/B9JYuEFRtAnQoGWE6')">External
+        ₹120</button>
+      <br><br>
+      <button type="button" class="close-btn" onclick="closeModal('glitchRegister')">Close</button>
+    </div>
+  </div>
+
+  <div class="modal" id="queensRegister">
+    <div class="modal-box">
+      <h2>TECH QUEENS</h2>
+      <p>Select Registration Type</p>
+      <button type="button" class="event-btn register-btn" onclick="window.open('https://forms.gle/hm3SNoxgbG8wEwCy9')">Internal
+        ₹60</button>
+      <br><br>
+      <button type="button" class="event-btn register-btn" onclick="window.open('https://forms.gle/qC4tBwFLzbcaZFor7')">External
+        ₹120</button>
+      <br><br>
+      <button type="button" class="close-btn" onclick="closeModal('queensRegister')">Close</button>
+    </div>
+  </div>
+
+  <script>
+    /* FLIP CARD LOGIC */
+      let activeCard = null;
+
+  document.querySelectorAll(".flip-card").forEach(card => {
+        card.addEventListener("click", (e) => {
+          e.stopPropagation();
+
+          // If another card is open, close it
+          if (activeCard && activeCard !== card) {
+            activeCard.classList.remove("flipped");
+          }
+
+          // Toggle current card
+          card.classList.toggle("flipped");
+
+          // Update active card reference
+          activeCard = card.classList.contains("flipped") ? card : null;
+        });
+  });
+
+      /* POSTER FULLSCREEN */
+      function openPoster(btn) {
+        event.stopPropagation();
+      document.getElementById("posterImg").src =
+      btn.previousElementSibling.src;
+      document.getElementById("posterView").style.display = "flex";
+  }
+
+      function closePoster() {
+        document.getElementById("posterView").style.display = "none";
+  }
+
+      /* MODALS */
+      function openModal(id) {
+        event.stopPropagation();
+      document.getElementById(id).style.display = "flex";
+  }
+
+      function closeModal(id) {
+        document.getElementById(id).style.display = "none";
+  }
+    /* POSTER FULLSCREEN */
+    function openPoster(btn) {
+      event.stopPropagation();
+      document.getElementById("posterImg").src =
+        btn.previousElementSibling.src;
+      document.getElementById("posterView").style.display = "flex";
+    }
+    function closePoster() {
+      document.getElementById("posterView").style.display = "none";
+    }
+
+    /* MODALS */
+    function openModal(id) {
+      event.stopPropagation();
+      document.getElementById(id).style.display = "flex";
+    }
+    function closeModal(id) {
+      document.getElementById(id).style.display = "none";
+    }
+  </script>
+
+</body>
+
+</html>
